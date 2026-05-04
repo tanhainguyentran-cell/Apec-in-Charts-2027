@@ -592,7 +592,7 @@
         <div class="header">
             <div class="pre-title">2. Nhóm Dữ liệu Cấu trúc Nền kinh tế & Năng suất</div>
             <h1 class="title">Biểu đồ 2.2: Cấu trúc Đóng góp Giá trị Gia tăng theo Khu vực Kinh tế (Dự phóng 2026*)</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> Biểu đồ cho thấy sự phân hóa rõ rệt về cấu trúc kinh tế nội khối. Các nền kinh tế phát triển (Hồng Kông, Hoa Kỳ, Nhật Bản, Canada) đã hoàn tất quá trình chuyển dịch với nhóm Dịch vụ đóng góp từ 70% đến hơn 90% GDP. Ngược lại, tại các quốc gia đang phát triển (Việt Nam, Indonesia, Thái Lan) và nền xưởng gia công lớn như Trung Quốc, khu vực Công nghiệp Chế biến Chế tạo vẫn duy trì tỷ trọng trên 20%, đóng vai trò là xương sống sản xuất của khu vực. Những nền kinh tế đặc thù như Brunei hay Papua New Guinea có phần "Khu vực khác" lớn do phụ thuộc vào khai khoáng.</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Biểu đồ cho thấy sự phân hóa rõ rệt về cấu trúc kinh tế nội khối. Các nền kinh tế phát triển (Hồng Kông, Hoa Kỳ, Nhật Bản, Canada) đã hoàn tất quá trình chuyển dịch với nhóm Dịch vụ đóng góp từ 70% đến hơn 90% GDP. Ngược lại, tại các quốc gia đang phát triển (Việt Nam, Indonesia, Thái Lan) và nền xưởng gia công lớn như Trung Quốc, khu vực Công nghiệp Chế biến Chế tạo vẫn duy trì tỷ trọng trên 20%, đóng vai trò là xương sống sản xuất của khu vực. Những nền kinh tế đặc thù như Brunei hay Papua New Guinea có phần "Khác" lớn do phụ thuộc vào khai khoáng.</p>
         </div>
         <div class="canvas-container" style="display: flex; flex-direction: column;">
             
@@ -650,16 +650,45 @@
         <div class="footnote"></div>
     </div>
 
+    <!-- BIỂU ĐỒ 2.5 MỚI -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">2. Nhóm Dữ liệu Cấu trúc Nền kinh tế & Năng suất</div>
-            <h1 class="title">Biểu đồ 2.5: Tỷ lệ Thất nghiệp và Tỷ lệ Thiếu việc làm Hỗn hợp</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> [Nhập nội dung phân tích chi tiết cho biểu đồ 2.5 tại đây...]</p>
+            <h1 class="title">Biểu đồ 2.5: Tỷ lệ Thất nghiệp (LU1) và Tỷ lệ Thiếu việc làm Hỗn hợp (LU4) (2024 - 2026*)</h1>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Biểu đồ cho thấy bức tranh đa chiều về thị trường lao động. Tỷ lệ thất nghiệp chính thức (LU1) của đa số các nền kinh tế được duy trì ở mức tương đối thấp. Tuy nhiên, khi đối chiếu với tỷ lệ thiếu việc làm hỗn hợp (LU4 - bao gồm cả những người nản lòng hoặc làm việc dưới khả năng), khoảng cách chênh lệch bộc lộ rõ rệt. Các quốc gia như Chile, Peru, Papua New Guinea và Philippines ghi nhận mức LU4 lên tới 13-15%, phản ánh tình trạng dư thừa lao động tiềm ẩn rất lớn. Xu hướng từ 2024 đến 2026 cho thấy thị trường có sự giằng co nhưng cấu trúc khoảng cách LU1-LU4 vẫn chưa được thu hẹp đáng kể.</p>
         </div>
-        <div class="canvas-container">
-            <div class="placeholder-box">Vùng chờ: Cập nhật mã nguồn và số liệu Biểu đồ 2.5 vào đây</div>
+        
+        <!-- Bố cục 2 biểu đồ cột ngang đặt cạnh nhau -->
+        <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
+            
+            <!-- Biểu đồ Trái: LU1 -->
+            <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px dashed #CBD5E1;">
+                <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Tỷ lệ Thất nghiệp Tự nhiên (LU1)</h3>
+                <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px; font-size: 11px; color: #475569; font-weight: 600;">
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #b0ebfb; margin-right: 4px; border-radius: 2px;"></span>2024</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #acfde1; margin-right: 4px; border-radius: 2px;"></span>2025</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #134675; margin-right: 4px; border-radius: 2px;"></span>2026*</div>
+                </div>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart2_5_LU1"></canvas>
+                </div>
+            </div>
+
+            <!-- Biểu đồ Phải: LU4 -->
+            <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px dashed #CBD5E1;">
+                <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Tỷ lệ Thiếu việc làm Hỗn hợp (LU4)</h3>
+                <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px; font-size: 11px; color: #475569; font-weight: 600;">
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #b0ebfb; margin-right: 4px; border-radius: 2px;"></span>2024</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #acfde1; margin-right: 4px; border-radius: 2px;"></span>2025</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #134675; margin-right: 4px; border-radius: 2px;"></span>2026*</div>
+                </div>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart2_5_LU4"></canvas>
+                </div>
+            </div>
+
         </div>
-        <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
+        <div class="footnote"></div>
     </div>
 
     <!-- ================== NHÓM 3 ================== -->
@@ -1675,6 +1704,8 @@
                 indexAxis: 'y', // Cột ngang
                 scales: {
                     x: {
+                        min: -10, // Ép trục X đối xứng tuyệt đối để tiêu đề nằm ngay chính giữa
+                        max: 10,  // Ép trục X đối xứng tuyệt đối
                         grid: {
                             color: (ctx) => ctx.tick.value === 0 ? '#134675' : '#F1F5F9', // Kẻ đường đậm tại mốc 0
                             lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1
@@ -1735,6 +1766,99 @@
             }
         });
 
+        // ==========================================
+        // CẤU HÌNH BIỂU ĐỒ 2.5 (THẤT NGHIỆP LU1 & LU4)
+        // ==========================================
+        
+        // Dữ liệu và làm sạch: sắp xếp theo LU4 2026 giảm dần để thấy bức tranh tổng thể
+        const data2_5_Raw = [
+            { e: 'Hoa Kỳ', lu1: [4.1, 4.3, 3.9], lu4: [5.8, 6.0, 5.7] },
+            { e: 'Trung Quốc', lu1: [4.6, 5.1, 5.0], lu4: [8.4, 8.5, 8.5] },
+            { e: 'Nhật Bản', lu1: [2.6, 2.7, 2.6], lu4: [4.4, 4.5, 4.5] },
+            { e: 'Hàn Quốc', lu1: [2.7, 2.6, 3.0], lu4: [5.3, 5.6, 5.5] },
+            { e: 'Canada', lu1: [6.4, 6.6, 6.4], lu4: [8.8, 9.6, 9.5] },
+            { e: 'Úc', lu1: [4.1, 4.3, 4.2], lu4: [8.1, 8.6, 8.5] },
+            { e: 'Mexico', lu1: [2.8, 2.7, 3.0], lu4: [10.8, 11.2, 11.0] },
+            { e: 'Indonesia', lu1: [3.3, 5.0, 4.9], lu4: [9.4, 9.2, 9.0] },
+            { e: 'Việt Nam', lu1: [1.4, 2.2, 2.2], lu4: [3.9, 4.0, 4.0] },
+            { e: 'Philippines', lu1: [2.2, 3.9, 4.0], lu4: [13.5, 13.2, 13.0] },
+            { e: 'Thái Lan', lu1: [0.7, 0.7, 1.0], lu4: [2.5, 2.6, 2.5] },
+            { e: 'Malaysia', lu1: [3.8, 3.2, 3.1], lu4: [6.2, 6.1, 6.0] },
+            { e: 'Đài Bắc TH', lu1: [3.4, 3.3, 3.4], lu4: [8.3, 8.3, 8.3] },
+            { e: 'Hồng Kông', lu1: [3.0, 3.5, 3.7], lu4: [6.0, 6.7, 6.5] },
+            { e: 'Singapore', lu1: [3.2, 1.9, 1.9], lu4: [4.0, 4.1, 4.0] },
+            { e: 'Chile', lu1: [9.0, 9.1, 8.0], lu4: [14.8, 15.2, 15.0] },
+            { e: 'Peru', lu1: [4.8, 4.8, 6.2], lu4: [13.5, 14.3, 14.0] },
+            { e: 'New Zealand', lu1: [5.1, 5.2, 5.3], lu4: [10.2, 10.6, 10.5] },
+            { e: 'Nga', lu1: [2.6, 2.2, 2.9], lu4: [5.2, 5.0, 5.0] },
+            { e: 'Brunei', lu1: [4.9, 5.1, 4.6], lu4: [8.8, 8.6, 8.5] },
+            { e: 'Papua N.G', lu1: [2.7, 2.0, 2.8], lu4: [14.2, 14.1, 14.0] }
+        ].sort((a, b) => b.lu4[2] - a.lu4[2]); // Sắp xếp theo LU4 2026 giảm dần
+
+        // Chung một hàm để tạo config cho 2 biểu đồ (tránh lặp code)
+        function createConfig2_5(datasetKey) {
+            return {
+                type: 'bar',
+                data: {
+                    labels: data2_5_Raw.map(d => d.e),
+                    datasets: [
+                        {
+                            label: '2024',
+                            data: data2_5_Raw.map(d => d[datasetKey][0]),
+                            backgroundColor: '#b0ebfb',
+                            borderRadius: 2
+                        },
+                        {
+                            label: '2025',
+                            data: data2_5_Raw.map(d => d[datasetKey][1]),
+                            backgroundColor: '#acfde1',
+                            borderRadius: 2
+                        },
+                        {
+                            label: '2026*',
+                            data: data2_5_Raw.map(d => d[datasetKey][2]),
+                            backgroundColor: '#134675',
+                            borderRadius: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Biểu đồ ngang
+                    scales: {
+                        x: {
+                            max: 16, // Đồng bộ thang đo X tối đa ~16% để 2 bên cân xứng
+                            grid: { color: (ctx) => ctx.tick.value === 0 ? '#94A3B8' : '#F1F5F9' },
+                            ticks: { font: { size: 10 }, callback: (val) => val + '%' }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { size: 9, weight: '600' }, color: '#475569', autoSkip: false },
+                            border: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }, // Dùng custom HTML legend
+                        datalabels: { display: false }, // Quá nhiều thanh nhỏ, tắt datalabel để tránh rối
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 32, 39, 0.95)',
+                            titleFont: { size: 13, weight: '700' },
+                            bodyFont: { size: 12 },
+                            padding: 10,
+                            callbacks: {
+                                label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}%`
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        // Khởi tạo 2 biểu đồ
+        new Chart(document.getElementById('apecChart2_5_LU1').getContext('2d'), createConfig2_5('lu1'));
+        new Chart(document.getElementById('apecChart2_5_LU4').getContext('2d'), createConfig2_5('lu4'));
+
 
         // ==========================================
         // ĐỒNG BỘ CHÚ THÍCH DỰ PHÓNG (*) CHO TẤT CẢ BIỂU ĐỒ
@@ -1749,11 +1873,15 @@
             el.style.display = 'flex';
             el.style.justifyContent = 'space-between';
             el.style.alignItems = 'flex-end';
-            el.style.paddingTop = '4px';
+            el.style.paddingTop = '8px';
             el.style.width = '100%';
-            el.style.marginTop = '8px';
+            el.style.marginTop = 'auto'; // Ép dòng chú thích xuống sát đáy
             el.style.fontSize = '11px';
             el.style.fontStyle = 'italic';
+            el.style.flexShrink = '0'; // QUAN TRỌNG: Không cho phép bị co lại khi biểu đồ tràn khung
+            el.style.position = 'relative';
+            el.style.zIndex = '10'; // Nổi lên trên lớp canvas
+            el.style.backgroundColor = '#FFFFFF'; // Có màu nền trắng để che nét biểu đồ bị lẹm (nếu có)
         });
 
     </script>
