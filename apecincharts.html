@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEC in Charts - Dự báo Tăng trưởng</title>
+    <!-- Thư viện Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plugin DataLabels để hiển thị số liệu trực tiếp trên biểu đồ -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <!-- Font chữ hiện đại -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F1F5F9; /* Nền xám nhạt làm nổi bật vùng đồ thị */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chart-wrapper {
+            background-color: #FFFFFF;
+            /* Đảm bảo tỷ lệ 16:9 */
+            width: 100%;
+            max-width: 1300px; /* Tăng chiều rộng để đủ chỗ cho Legend bên phải */
+            aspect-ratio: 16 / 9;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(15, 32, 39, 0.08);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: #134675; /* Nền xanh navy đậm theo yêu cầu */
+            padding: 28px 36px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 16px rgba(19, 70, 117, 0.15); /* Thêm bóng đổ nhẹ để khối header nổi bật */
+        }
+
+        .pre-title {
+            color: #acfde1; /* Màu xanh ngọc (tương đồng cột 2025) làm điểm nhấn */
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .title {
+            color: #FFFFFF; /* Chữ tiêu đề màu trắng */
+            font-size: 21px; /* Đã thu nhỏ cỡ chữ từ 26px xuống 21px */
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+            white-space: nowrap; /* Ép chữ nằm trên 1 dòng duy nhất */
+        }
+
+        .subtitle {
+            color: #F8FAFC; /* Trắng xám nhạt để dễ đọc đoạn phân tích dài */
+            font-size: 15px;
+            font-weight: 400;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .canvas-container {
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
+        }
+
+        .footnote {
+            margin-top: 16px;
+            text-align: right;
+            font-size: 13px;
+            color: #64748B;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chart-wrapper">
+        <div class="header">
+            <div class="pre-title">1. Nhóm Dữ liệu Vị thế Toàn cầu & Cấu trúc Nhân khẩu</div>
+            <h1 class="title">Biểu đồ 1.1: Phân bổ Trọng số GDP và Quy mô Dân số APEC trong Tương quan Toàn cầu</h1>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Nhìn chung, toàn khu vực APEC đang trải qua quá trình điều chỉnh và chững lại về đà tăng trưởng trong giai đoạn 2024 - 2026, đồng pha với nhịp giảm tốc chung của nền kinh tế toàn cầu. Đa số các nền kinh tế thành viên đều thể hiện xu hướng biến động hẹp và đối mặt với thách thức suy giảm động lực vào năm 2026, phản ánh sự chuyển dịch có tính chu kỳ của môi trường vĩ mô quốc tế.</p>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="apecGrowthChart"></canvas>
+        </div>
+
+        <div class="footnote">
+            * Nguồn: Số liệu được DSC và Economia tổng hợp
+        </div>
+    </div>
+
+    <script>
+        // Đăng ký plugin DataLabels
+        Chart.register(ChartDataLabels);
+
+        // Kích hoạt độ phân giải siêu cao (Retina) để chụp màn hình nét
+        Chart.defaults.devicePixelRatio = 3;
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        const ctx = document.getElementById('apecGrowthChart').getContext('2d');
+
+        // Tập dữ liệu toàn bộ 21 nền kinh tế và 2 mức trung bình
+        const rawData = [
+            { label: 'Australia', data: [3.5, 2.9, 2.7], color: '#1f77b4' },
+            { label: 'Brunei Darussalam', data: [-0.4, 0.8, 0.6], color: '#aec7e8' },
+            { label: 'Canada', data: [2.4, 2.5, 2.1], color: '#ff7f0e' },
+            { label: 'Chile', data: [4.3, 3.8, 3.0], color: '#ffbb78' },
+            { label: 'Trung Quốc', data: [0.2, 0.7, 0.7], color: '#9467bd' },
+            { label: 'Hong Kong', data: [2.1, 2.3, 2.0], color: '#c5b0d5' },
+            { label: 'Indonesia', data: [2.3, 2.5, 3.0], color: '#8c564b' },
+            { label: 'Nhật Bản', data: [2.7, 2.5, 2.0], color: '#c49c94' },
+            { label: 'Hàn Quốc', data: [2.3, 2.6, 2.0], color: '#e377c2' },
+            { label: 'Malaysia', data: [2.5, 2.2, 2.5], color: '#f7b6d2' },
+            { label: 'Mexico', data: [4.7, 4.3, 3.3], color: '#393b79' },
+            { label: 'New Zealand', data: [4.0, 3.5, 2.6], color: '#637939' },
+            { label: 'Papua New Guinea', data: [5.0, 4.5, 4.6], color: '#8ca252' },
+            { label: 'Peru', data: [3.5, 3.0, 1.9], color: '#8c6d31' },
+            { label: 'Philippines', data: [6.0, 4.5, 2.8], color: '#bd9e39' },
+            { label: 'Liên bang Nga', data: [7.4, 6.5, 5.2], color: '#FF6B6B', isHighlight: true },
+            { label: 'Singapore', data: [4.8, 3.5, 1.5], color: '#5254a3' },
+            { label: 'Đài Bắc Trung Hoa', data: [2.5, 2.3, 1.6], color: '#7b4173' },
+            { label: 'Thái Lan', data: [1.3, -0.28, 0.7], color: '#ce6dbd' },
+            { label: 'Hoa Kỳ', data: [3.0, 2.7, 2.4], color: '#ad494a' },
+            { label: 'Việt Nam', data: [3.2, 3.5, 3.5], color: '#20C997', isHighlight: true },
+            { label: 'Trung bình Toàn cầu', data: [5.8, 4.2, 3.5], color: '#F5A623', isHighlight: true, isDash: true },
+            { label: 'Trung bình APEC', data: [3.7, 2.0, 2.1], color: '#94A3B8', isHighlight: true, isArea: true }
+        ];
+
+        // --- CẤU TRÚC DỮ LIỆU MỚI CHO BIỂU ĐỒ CỘT ---
+        const labels = rawData.map(item => item.label);
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: '2024',
+                    data: rawData.map(item => item.data[0]),
+                    backgroundColor: '#b0ebfb', // Màu năm 2024
+                    borderRadius: 4
+                },
+                {
+                    label: '2025',
+                    data: rawData.map(item => item.data[1]),
+                    backgroundColor: '#acfde1', // Màu năm 2025
+                    borderRadius: 4
+                },
+                {
+                    label: '2026 (Dự báo)',
+                    data: rawData.map(item => item.data[2]),
+                    backgroundColor: '#134675', // Màu năm 2026 cho tất cả
+                    borderRadius: 4
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: { top: 30, right: 10, bottom: 10, left: 10 }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart'
+                },
+                plugins: {
+                    legend: {
+                        position: 'top', // Chuyển legend lên trên vì chỉ còn 3 nhóm (2024, 2025, 2026)
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20,
+                            font: { size: 14, weight: '600' },
+                            color: '#0F2027'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)',
+                        titleFont: { size: 14, weight: '700' },
+                        bodyFont: { size: 13 },
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: true,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y + '%';
+                            }
+                        }
+                    },
+                    datalabels: {
+                        display: false // Tắt hiển thị nhãn số trên đỉnh cột
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 12, weight: '600' },
+                            color: '#475569',
+                            maxRotation: 45, // Đặt góc nghiêng cố định để không bị đè chữ
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        // Không thiết lập 'min' để Chart.js tự động mở rộng không gian cho số âm (-0.4)
+                        grid: {
+                            color: function(context) {
+                                if (context.tick.value === 0) return '#94A3B8'; // Làm rõ đường Baseline số 0
+                                return '#F1F5F9';
+                            },
+                            lineWidth: function(context) {
+                                if (context.tick.value === 0) return 2; // Đường Baseline dày hơn
+                                return 1;
+                            }
+                        },
+                        border: { display: false },
+                        ticks: {
+                            font: { size: 13 },
+                            color: '#64748B',
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>
