@@ -2278,7 +2278,183 @@
             el.style.zIndex = '10'; // Nổi lên trên lớp canvas
             el.style.backgroundColor = '#FFFFFF'; // Có màu nền trắng để che nét biểu đồ bị lẹm (nếu có)
         });
+  <!-- BIỂU ĐỒ 3.4 -->
+    <div class="chart-wrapper">
+        <div class="header">
+            <div class="pre-title">3. Nhóm Dữ liệu Hạ tầng Kết nối Số</div>
+            <h1 class="title">Biểu đồ 3.4: Hệ số Tương quan r giữa Thuế Carbon Biên giới (CBAM) và Kim ngạch Xuất khẩu EIG</h1>
+            <p class="subtitle">Phân loại mức độ ảnh hưởng của chính sách CBAM đối với kim ngạch xuất khẩu Hàng hóa Môi trường (EIG) dựa trên hệ số tương quan thực nghiệm (r).</p>
+        </div>
+        <div class="canvas-container">
+            <!-- Ngưỡng đánh giá chiến lược -->
+            <div class="threshold-box">
+                <div class="threshold-item">
+                    <span class="t-red">1. Vùng Đỏ (Rủi ro cao - r < -0,7):</span><br>
+                    Các nền kinh tế có sự sụt giảm mạnh về kim ngạch xuất khẩu khi thuế carbon tăng. Thường có công nghệ sản xuất lạc hậu.
+                </div>
+                <div class="threshold-item">
+                    <span class="t-yellow">2. Vùng Vàng (Thích nghi - -0,7 ≤ r ≤ -0,3):</span><br>
+                    Các nền kinh tế đang trong quá trình chuyển đổi. Kim ngạch có biến động nhưng được bù đắp bởi hiệu suất năng lượng.
+                </div>
+                <div class="threshold-item">
+                    <span class="t-green">3. Vùng Xanh (Lợi thế cạnh tranh - r > -0,3):</span><br>
+                    Các nền kinh tế có độ nhạy cảm thấp. Sở hữu nguồn năng lượng sạch dồi dào hoặc đã giảm phát thải từ sớm.
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 20px; flex-grow: 1;">
+                <div style="flex: 1; border: 1px solid #E2E8F0; border-radius:12px; padding:10px;"><canvas id="chart3_4_L"></canvas></div>
+                <div style="flex: 2; border: 1px solid #E2E8F0; border-radius:12px; padding:10px;"><canvas id="chart3_4_R"></canvas></div>
+            </div>
+        </div>
+        <div class="footnote"></div>
+    </div>
 
+    <script>
+        Chart.register(ChartDataLabels);
+        Chart.defaults.devicePixelRatio = 3;
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        const subColors = { 'Đông Bắc Á': '#134675', 'Đông Nam Á': '#acfde1', 'Châu Mỹ': '#b0ebfb', 'Châu Đại Dương': '#FF6B6B' };
+
+        // --- 3.1 ---
+        new Chart(document.getElementById('chart3_1_L').getContext('2d'), {
+            data: {
+                labels: ['2024', '2025', '2026*'],
+                datasets: [
+                    { type: 'line', label: 'Tăng trưởng Tổng (%)', data: [3.9, 7.0, 3.0], borderColor: '#FF6B6B', yAxisID: 'y1', order: 1 },
+                    { type: 'bar', label: 'Dịch vụ', data: [6.2, 6.75, 7.04], backgroundColor: '#134675', order: 2 },
+                    { type: 'bar', label: 'Hàng hóa', data: [24.5, 26.1, 26.8], backgroundColor: '#b0ebfb', order: 3 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true }, y1: { position: 'right', min: 0, max: 12 } }, plugins: { datalabels: {display: false} } }
+        });
+        new Chart(document.getElementById('chart3_1_R').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['2024', '2025', '2026*'],
+                datasets: [
+                    { label: 'Đông Bắc Á', data: [3.1, 7.2, 2.5], borderColor: '#134675' },
+                    { label: 'Đông Nam Á', data: [4.5, 7.6, 3.5], borderColor: '#acfde1' },
+                    { label: 'Châu Mỹ', data: [3.6, 6.0, 2.8], borderColor: '#b0ebfb' },
+                    { label: 'Châu Đại Dương', data: [4.0, 10.0, 10.2], borderColor: '#FF6B6B' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: {position:'bottom'} } }
+        });
+
+        // --- 3.2 ---
+        const data3_2 = [
+            { e: 'USA', r: 'Châu Mỹ', v: 827.8 }, { e: 'PRC', r: 'Đông Bắc Á', v: 265.4 },
+            { e: 'SGP', r: 'Đông Nam Á', v: 243.7 }, { e: 'JPN', r: 'Đông Bắc Á', v: 214.9 },
+            { e: 'CDA', r: 'Châu Mỹ', v: 142.3 }, { e: 'ROK', r: 'Đông Bắc Á', v: 127.6 }
+        ];
+        new Chart(document.getElementById('chart3_2').getContext('2d'), {
+            type: 'treemap',
+            data: {
+                datasets: [{
+                    tree: data3_2, key: 'v', groups: ['e'], spacing: 1,
+                    backgroundColor: (ctx) => {
+                        if (!ctx.raw) return 'transparent';
+                        const key = ctx.raw.g || (ctx.raw._data && ctx.raw._data.e);
+                        if (!key) return '#134675';
+                        const item = data3_2.find(i => i.e === key);
+                        return subColors[item?.r] || '#134675';
+                    },
+                    labels: { display: true, formatter: (ctx) => ctx.raw && ctx.raw._data ? [ctx.raw._data.e, ctx.raw.v + 'B'] : '' }
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: {display:false} } }
+        });
+
+        // --- 3.3 ---
+        new Chart(document.getElementById('chart3_3_L').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Đông Bắc Á', 'Đông Nam Á', 'Châu Mỹ', 'Châu Đại Dương'],
+                datasets: [{ label: 'Inflows 2026*', data: [293.07, 248.89, 458.74, 38.51], backgroundColor: '#134675' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+        new Chart(document.getElementById('chart3_3_R').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Đông Bắc Á', 'Đông Nam Á', 'Châu Mỹ', 'Châu Đại Dương'],
+                datasets: [{ label: 'Outflows 2026*', data: [582.7, 117.8, 403.48, 17.2], backgroundColor: '#FF6B6B' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // --- 3.4 UPDATED ---
+        const regionData34 = [
+            { l: 'Toàn cầu', r: -0.41, c: '#94A3B8' },
+            { l: 'Toàn APEC', r: -0.44, c: '#134675' },
+            { l: 'Đông Bắc Á', r: -0.51, c: '#134675' },
+            { l: 'Đông Nam Á', r: -0.54, c: '#acfde1' },
+            { l: 'Châu Mỹ', r: -0.26, c: '#b0ebfb' },
+            { l: 'Châu Đại Dương', r: -0.37, c: '#FF6B6B' }
+        ];
+
+        new Chart(document.getElementById('chart3_4_L').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: regionData34.map(d => d.l),
+                datasets: [{ data: regionData34.map(d => d.r), backgroundColor: regionData34.map(d => d.c), borderRadius: 4 }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { min: -1.0, max: 0, title: {display:true, text: 'Hệ số tương quan (r)'} } },
+                plugins: { legend: {display:false}, datalabels: { anchor:'end', align:'bottom', color:'#FFF', font:{weight:'bold'} } }
+            }
+        });
+
+        const economyData34 = [
+            { e: 'Liên bang Nga', r: -0.74, reg: 'Đông Bắc Á' }, 
+            { e: 'Brunei Darussalam', r: -0.63, reg: 'Đông Nam Á' },
+            { e: 'Indonesia', r: -0.61, reg: 'Đông Nam Á' }, 
+            { e: 'Trung Quốc', r: -0.57, reg: 'Đông Bắc Á' },
+            { e: 'Việt Nam', r: -0.5, reg: 'Đông Nam Á' }, 
+            { e: 'Malaysia', r: -0.48, reg: 'Đông Nam Á' },
+            { e: 'Hàn Quốc', r: -0.47, reg: 'Đông Bắc Á' }, 
+            { e: 'Thái Lan', r: -0.43, reg: 'Đông Nam Á' },
+            { e: 'Papua New Guinea', r: -0.42, reg: 'Châu Đại Dương' }, 
+            { e: 'Mexico', r: -0.42, reg: 'Châu Mỹ' },
+            { e: 'Australia', r: -0.4, reg: 'Châu Đại Dương' }, 
+            { e: 'Đài Bắc Trung Hoa', r: -0.4, reg: 'Đông Bắc Á' },
+            { e: 'Philippines', r: -0.36, reg: 'Đông Nam Á' }, 
+            { e: 'Peru', r: -0.35, reg: 'Châu Mỹ' },
+            { e: 'Nhật Bản', r: -0.34, reg: 'Đông Bắc Á' }, 
+            { e: 'Chile', r: -0.3, reg: 'Châu Mỹ' },
+            { e: 'Hoa Kỳ', r: -0.19, reg: 'Châu Mỹ' }, 
+            { e: 'Canada', r: -0.15, reg: 'Châu Mỹ' },
+            { e: 'New Zealand', r: -0.14, reg: 'Châu Đại Dương' }, 
+            { e: 'Hồng Kông (Trung Quốc)', r: -0.12, reg: 'Đông Bắc Á' },
+            { e: 'Singapore', r: -0.1, reg: 'Đông Nam Á' }
+        ].sort((a,b) => a.r - b.r);
+
+        new Chart(document.getElementById('chart3_4_R').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: economyData34.map(i => i.e),
+                datasets: [{ data: economyData34.map(i => i.r), backgroundColor: economyData34.map(i => subColors[i.reg]), borderRadius: 3, barThickness: 8 }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                scales: { x: { min: -1.0, max: 0 }, y: { ticks: { font: { size: 9, weight: '600' } } } },
+                plugins: { legend: {display:false}, datalabels: { anchor:'start', align:'left', font:{size:10, weight:'bold'}, formatter: v => v.toFixed(2) } }
+            }
+        });
+
+        // Footnote Đồng bộ
+        document.querySelectorAll('.footnote').forEach(el => {
+            el.innerHTML = `
+                <span style="color: #134675; font-weight: 600;">* Các chỉ số có đánh dấu (*) đại diện cho số liệu dự phóng (Forecast)</span>
+                <span style="color: #64748B;">* Nguồn: DSC và Economia tổng hợp</span>
+            `;
+            el.style.display = 'flex'; el.style.justifyContent = 'space-between'; el.style.alignItems = 'flex-end';
+            el.style.paddingTop = '8px'; el.style.width = '100%'; el.style.marginTop = 'auto'; el.style.fontSize = '11px';
+            el.style.fontStyle = 'italic'; el.style.flexShrink = '0'; el.style.position = 'relative'; el.style.zIndex = '10'; el.style.backgroundColor = '#FFFFFF';
+        });
     </script>
 </body>
 </html>
