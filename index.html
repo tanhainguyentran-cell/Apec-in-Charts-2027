@@ -625,16 +625,29 @@
         <div class="footnote"></div>
     </div>
 
+    <!-- BIỂU ĐỒ 2.4 MỚI CẬP NHẬT -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">2. Nhóm Dữ liệu Cấu trúc Nền kinh tế & Năng suất</div>
-            <h1 class="title">Biểu đồ 2.4: Chỉ số Tỷ giá Hối đoái Tương đối so với Quyền Rút vốn Đặc biệt (SDR) của IMF</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> [Nhập nội dung phân tích chi tiết cho biểu đồ 2.4 tại đây...]</p>
+            <h1 class="title">Biểu đồ 2.4: Chỉ số Tỷ giá Hối đoái Tương đối so với Quyền Rút vốn Đặc biệt (SDR) của IMF (Dự phóng 2026*)</h1>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Biểu đồ thể hiện mức độ biến động dự phóng của các đồng nội tệ so với rổ tiền tệ SDR (Lấy mốc 2025 = 100 điểm). Tỷ giá hối đoái năm 2026 cho thấy sự phân hóa rõ nét. Đồng Rúp (Nga), Peso (Philippines) và Kina (Papua New Guinea) ghi nhận xu hướng lên giá mạnh nhất (+4 đến +8 điểm). Ngược lại, đồng tiền của các quốc gia lấy xuất khẩu làm trọng tâm ở Đông Nam Á (Malaysia, Thái Lan, Brunei) và Trung Quốc dự báo chịu áp lực mất giá nhẹ (-4 đến -6 điểm) nhằm tăng sức cạnh tranh thương mại trên thị trường quốc tế.</p>
         </div>
-        <div class="canvas-container">
-            <div class="placeholder-box">Vùng chờ: Cập nhật mã nguồn và số liệu Biểu đồ 2.4 vào đây</div>
+        <div class="canvas-container" style="display: flex; flex-direction: column;">
+            
+            <!-- Chú thích riêng của Biểu đồ 2.4 -->
+            <div style="display: flex; justify-content: center; gap: 20px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 12px; border-bottom: 1px dashed #E2E8F0; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #134675; margin-right: 6px; border-radius: 2px;"></span>Đông Bắc Á</div>
+                <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #acfde1; margin-right: 6px; border-radius: 2px;"></span>Đông Nam Á</div>
+                <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #b0ebfb; margin-right: 6px; border-radius: 2px;"></span>Châu Mỹ</div>
+                <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #FF6B6B; margin-right: 6px; border-radius: 2px;"></span>Châu Đại Dương</div>
+            </div>
+
+            <div style="flex-grow: 1; position: relative; background: #FFFFFF; border-radius: 12px;">
+                <canvas id="apecChart2_4"></canvas>
+            </div>
+            
         </div>
-        <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
+        <div class="footnote"></div>
     </div>
 
     <div class="chart-wrapper">
@@ -1602,6 +1615,126 @@
         };
 
         new Chart(ctx2_3, config2_3);
+
+        // ==========================================
+        // CẤU HÌNH BIỂU ĐỒ 2.4 (CHỈ SỐ TỶ GIÁ SDR)
+        // ==========================================
+        const ctx2_4 = document.getElementById('apecChart2_4').getContext('2d');
+
+        // Dữ liệu gốc 2 chữ số thập phân và tính toán độ lệch so với 100
+        const rawData2_4 = [
+            { e: 'Trung Quốc', val: 95.36, r: 'Đông Bắc Á' },
+            { e: 'Hồng Kông', val: 98.35, r: 'Đông Bắc Á' },
+            { e: 'Nhật Bản', val: 101.13, r: 'Đông Bắc Á' },
+            { e: 'Hàn Quốc', val: 102.05, r: 'Đông Bắc Á' },
+            { e: 'Đài Bắc Trung Hoa', val: 99.69, r: 'Đông Bắc Á' },
+            { e: 'Nga', val: 108.09, r: 'Đông Bắc Á' },
+            { e: 'Brunei', val: 95.47, r: 'Đông Nam Á' },
+            { e: 'Indonesia', val: 100.59, r: 'Đông Nam Á' },
+            { e: 'Malaysia', val: 93.88, r: 'Đông Nam Á' },
+            { e: 'Philippines', val: 103.80, r: 'Đông Nam Á' },
+            { e: 'Singapore', val: 97.38, r: 'Đông Nam Á' },
+            { e: 'Thái Lan', val: 95.79, r: 'Đông Nam Á' },
+            { e: 'Việt Nam', val: 102.83, r: 'Đông Nam Á' },
+            { e: 'Canada', val: 98.41, r: 'Châu Mỹ' },
+            { e: 'Chile', val: 102.06, r: 'Châu Mỹ' },
+            { e: 'Mexico', val: 101.59, r: 'Châu Mỹ' },
+            { e: 'Peru', val: 101.49, r: 'Châu Mỹ' },
+            { e: 'Hoa Kỳ', val: 99.46, r: 'Châu Mỹ' },
+            { e: 'Australia', val: 97.59, r: 'Châu Đại Dương' },
+            { e: 'New Zealand', val: 101.66, r: 'Châu Đại Dương' },
+            { e: 'Papua New Guinea', val: 104.20, r: 'Châu Đại Dương' }
+        ].map(d => ({
+            ...d,
+            diff: parseFloat((d.val - 100).toFixed(2)) // Lệch so với 2025 (100), giữ 2 số thập phân
+        })).sort((a, b) => b.diff - a.diff); // Sắp xếp giảm dần theo độ lệch
+
+        const regionColors2_4 = {
+            'Đông Bắc Á': '#134675', 'Đông Nam Á': '#acfde1',
+            'Châu Mỹ': '#b0ebfb', 'Châu Đại Dương': '#FF6B6B'
+        };
+
+        new Chart(ctx2_4, {
+            type: 'bar',
+            data: {
+                labels: rawData2_4.map(d => d.e),
+                datasets: [{
+                    label: 'Biến động Điểm Index',
+                    data: rawData2_4.map(d => d.diff),
+                    backgroundColor: rawData2_4.map(d => regionColors2_4[d.r]),
+                    borderRadius: 4,
+                    barThickness: 8 // Thu nhỏ thanh cột để biểu đồ thoáng hơn
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: { left: 35, right: 35, top: 10, bottom: 10 } // Tạo không gian để số liệu không bị cắt lẹm
+                },
+                indexAxis: 'y', // Cột ngang
+                scales: {
+                    x: {
+                        grid: {
+                            color: (ctx) => ctx.tick.value === 0 ? '#134675' : '#F1F5F9', // Kẻ đường đậm tại mốc 0
+                            lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1
+                        },
+                        ticks: {
+                            font: { size: 10 },
+                            callback: (val) => {
+                                const formatted = val.toLocaleString('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+                                return val > 0 ? '+' + formatted : formatted;
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '← Mất giá (Điểm)         |         Lên giá (Điểm) →',
+                            color: '#64748B',
+                            font: { size: 11, weight: '600' }
+                        }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { size: 9.5, weight: '600' }, color: '#475569', autoSkip: false }, // Chỉnh cỡ chữ nhỏ lại cho cân đối
+                        border: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }, // Đã tạo custom legend
+                    datalabels: {
+                        anchor: (ctx) => ctx.dataset.data[ctx.dataIndex] >= 0 ? 'end' : 'start',
+                        align: (ctx) => ctx.dataset.data[ctx.dataIndex] >= 0 ? 'right' : 'left',
+                        color: (ctx) => {
+                            const val = ctx.dataset.data[ctx.dataIndex];
+                            if (val === 0) return 'transparent';
+                            return regionColors2_4[rawData2_4[ctx.dataIndex].r];
+                        },
+                        font: { size: 9.5, weight: 'bold' }, // Cỡ chữ số liệu thanh thoát hơn
+                        formatter: (val) => {
+                            // Format 2 chữ số thập phân có dấu phẩy tiếng Việt
+                            const formatted = Math.abs(val).toFixed(2).replace('.', ',');
+                            return val > 0 ? '+' + formatted : '-' + formatted;
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)',
+                        titleFont: { size: 13, weight: '700' },
+                        bodyFont: { size: 12 },
+                        padding: 12,
+                        callbacks: {
+                            label: (ctx) => {
+                                const diff = ctx.raw;
+                                const total = (diff + 100).toFixed(2).replace('.', ',');
+                                const formattedDiff = Math.abs(diff).toFixed(2).replace('.', ',');
+                                const sign = diff > 0 ? '+' : '-';
+                                return `Biến động: ${sign}${formattedDiff} điểm (Index 2026: ${total})`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
 
         // ==========================================
         // ĐỒNG BỘ CHÚ THÍCH DỰ PHÓNG (*) CHO TẤT CẢ BIỂU ĐỒ
