@@ -1037,16 +1037,40 @@
         <div class="footnote"></div>
     </div>
 
+    <!-- BIỂU ĐỒ 4.5 MỚI -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">4. Nhóm Dữ liệu Bao trùm & Thách thức Dân số già</div>
             <h1 class="title">Biểu đồ 4.5: Chi phí Cận biên và Nhu cầu Tiêu thụ Năng lượng trong Huấn luyện Mô hình Trí tuệ Nhân tạo</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> [Nhập nội dung phân tích chi tiết cho biểu đồ 4.5 tại đây...]</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Dự phóng đến 2026, Hoa Kỳ và Trung Quốc tiếp tục duy trì thế độc tôn về nhu cầu năng lượng cho Trung tâm Dữ liệu và AI (chiếm khoảng 73% toàn khối). Tuy nhiên, biểu đồ Phân tán Bong bóng (Bubble Chart) bên trái hé lộ một làn sóng dịch dịch chuyển mới: Các quốc gia Đông Nam Á (như Việt Nam, Indonesia, Malaysia) nhờ lợi thế giá điện công nghiệp cực kỳ cạnh tranh (<0.13 USD/kWh) đang trở thành "thỏi nam châm" thu hút đầu tư hạ tầng AI mới. Điều này được thể hiện qua tốc độ tăng trưởng nhu cầu (CAGR) vượt xa mức trung bình, dù quy mô tuyệt đối hiện tại vẫn còn khiêm tốn.</p>
         </div>
-        <div class="canvas-container">
-            <div class="placeholder-box">Vùng chờ: Cập nhật mã nguồn và số liệu Biểu đồ 4.5 vào đây</div>
+        <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
+            
+            <!-- Biểu đồ 4.5 Left: Bubble Chart -->
+            <div style="flex: 2; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Tương quan Giá điện và Động lực Tăng trưởng Nhu cầu AI (2024-2026)</h3>
+                <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
+                    <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #b0ebfb; margin-right: 4px; border-radius: 50%;"></span>Châu Mỹ</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #134675; margin-right: 4px; border-radius: 50%;"></span>Đ. Bắc Á</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #acfde1; margin-right: 4px; border-radius: 50%;"></span>Đ. Nam Á</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #FF6B6B; margin-right: 4px; border-radius: 50%;"></span>Châu Đ.Dương</div>
+                    <div style="display: flex; align-items: center; margin-left: 10px; border-left: 1px solid #CBD5E1; padding-left: 10px;"><span style="width: 12px; height: 12px; border: 1px solid #94A3B8; border-radius: 50%; margin-right: 4px; background: transparent;"></span>Độ lớn: Quy mô 2026 (TWh)</div>
+                </div>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart4_5_Left"></canvas>
+                </div>
+            </div>
+
+            <!-- Biểu đồ 4.5 Right: Doughnut Chart -->
+            <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Thị phần Tiêu thụ Năng lượng AI (Dự phóng 2026)</h3>
+                <div style="flex-grow: 1; position: relative; display: flex; justify-content: center; align-items: center;">
+                    <canvas id="apecChart4_5_Right"></canvas>
+                </div>
+            </div>
+
         </div>
-        <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
+        <div class="footnote"></div>
     </div>
 
     <!-- ================== NHÓM 5 ================== -->
@@ -3024,6 +3048,198 @@
                     tooltip: {
                         backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
                         callbacks: { label: (ctx) => `${ctx.raw}%` }
+                    }
+                }
+            }
+        });
+
+        // ==========================================
+        // CẤU HÌNH BIỂU ĐỒ 4.5 (NĂNG LƯỢNG AI & GIÁ ĐIỆN)
+        // ==========================================
+
+        // Tính toán CAGR cho dữ liệu 4.5 từ 2024 đến 2026
+        // CAGR = (Value_2026 / Value_2024)^(1/2) - 1
+        const data4_5_Raw = [
+            { e: 'Hoa Kỳ', abbr: 'USA', p: 0.148, d24: 183, d26: 245, r: 'Châu Mỹ' },
+            { e: 'Trung Quốc', abbr: 'PRC', p: 0.098, d24: 102, d26: 125, r: 'Đông Bắc Á' },
+            { e: 'Nhật Bản', abbr: 'JPN', p: 0.202, d24: 18.5, d26: 25, r: 'Đông Bắc Á' },
+            { e: 'Hàn Quốc', abbr: 'KOR', p: 0.119, d24: 12.5, d26: 18.5, r: 'Đông Bắc Á' },
+            { e: 'Singapore', abbr: 'SGP', p: 0.265, d24: 5.5, d26: 7.8, r: 'Đông Nam Á' },
+            { e: 'Canada', abbr: 'CAN', p: 0.108, d24: 11.2, d26: 16, r: 'Châu Mỹ' },
+            { e: 'Úc', abbr: 'AUS', p: 0.24, d24: 7.2, d26: 10.5, r: 'Châu Đại Dương' },
+            { e: 'Đài Bắc TH', abbr: 'TPE', p: 0.187, d24: 4.5, d26: 7.5, r: 'Đông Bắc Á' },
+            { e: 'Hồng Kông', abbr: 'HKG', p: 0.175, d24: 2.8, d26: 4, r: 'Đông Bắc Á' },
+            { e: 'Mexico', abbr: 'MEX', p: 0.212, d24: 3.6, d26: 5.5, r: 'Châu Mỹ' },
+            { e: 'Indonesia', abbr: 'INA', p: 0.07, d24: 2.4, d26: 4.2, r: 'Đông Nam Á' },
+            { e: 'Việt Nam', abbr: 'VIE', p: 0.078, d24: 1.8, d26: 3.5, r: 'Đông Nam Á' },
+            { e: 'Malaysia', abbr: 'MAS', p: 0.129, d24: 3.5, d26: 6.8, r: 'Đông Nam Á' },
+            { e: 'Thái Lan', abbr: 'THA', p: 0.128, d24: 2.6, d26: 4.5, r: 'Đông Nam Á' },
+            { e: 'Philippines', abbr: 'PHI', p: 0.155, d24: 1.5, d26: 3, r: 'Đông Nam Á' },
+            { e: 'Nga', abbr: 'RUS', p: 0.1, d24: 8.8, d26: 13, r: 'Đông Bắc Á' },
+            { e: 'Chile', abbr: 'CHL', p: 0.166, d24: 1.3, d26: 2.2, r: 'Châu Mỹ' },
+            { e: 'Peru', abbr: 'PER', p: 0.162, d24: 0.9, d26: 1.6, r: 'Châu Mỹ' },
+            { e: 'New Zealand', abbr: 'NZL', p: 0.152, d24: 0.6, d26: 1.3, r: 'Châu Đại Dương' }
+            // Brunei, PNG quá nhỏ nên loại bỏ để không làm nhiễu biểu đồ scatter
+        ].map(item => {
+            return {
+                ...item,
+                cagr: (Math.pow(item.d26 / item.d24, 1/2) - 1) * 100 // Tính %
+            };
+        });
+
+        const regionColors4_5 = {
+            'Đông Bắc Á': 'rgba(19, 70, 117, 0.7)', 'Đông Nam Á': 'rgba(172, 253, 225, 0.8)',
+            'Châu Mỹ': 'rgba(176, 235, 251, 0.8)', 'Châu Đại Dương': 'rgba(255, 107, 107, 0.8)'
+        };
+        const regionBorderColors4_5 = {
+            'Đông Bắc Á': '#134675', 'Đông Nam Á': '#134675',
+            'Châu Mỹ': '#134675', 'Châu Đại Dương': '#FF6B6B'
+        };
+
+        // --- Chart 4.5 Left: Bubble Chart ---
+        const ctx4_5_Left = document.getElementById('apecChart4_5_Left').getContext('2d');
+        
+        // Phân rã data thành 4 datasets để hiển thị Legend chính xác, hoặc cấu hình hàm chung
+        const bubbleDatasets = ['Đông Bắc Á', 'Đông Nam Á', 'Châu Mỹ', 'Châu Đại Dương'].map(region => {
+            const regionData = data4_5_Raw.filter(d => d.r === region);
+            return {
+                label: region,
+                backgroundColor: regionColors4_5[region],
+                borderColor: regionBorderColors4_5[region],
+                borderWidth: 1.5,
+                hoverBackgroundColor: regionBorderColors4_5[region],
+                data: regionData.map(d => ({
+                    x: d.p, // Giá điện
+                    y: d.cagr, // Tăng trưởng
+                    r: Math.max(5, Math.sqrt(d.d26) * 3), // Quy mô (bán kính tỷ lệ với căn bậc 2 của diện tích/nhu cầu)
+                    e: d.e,
+                    abbr: d.abbr,
+                    d26: d.d26
+                }))
+            };
+        });
+
+        new Chart(ctx4_5_Left, {
+            type: 'bubble',
+            data: { datasets: bubbleDatasets },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                layout: { padding: { top: 20, right: 30 } },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Giá điện công nghiệp (USD/kWh)', font: {weight: '600'}, color: '#134675'},
+                        grid: { color: '#F1F5F9' },
+                        ticks: { font: {size: 11} }
+                    },
+                    y: {
+                        title: { display: true, text: 'Tăng trưởng Nhu cầu CAGR (%)', font: {weight: '600'}, color: '#134675'},
+                        grid: { color: '#F1F5F9' },
+                        ticks: { font: {size: 11}, callback: v => v + '%' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }, // Đã tạo custom legend HTML
+                    datalabels: {
+                        display: true,
+                        color: '#0F2027', font: {size: 9.5, weight: '700'},
+                        formatter: (val) => val.abbr,
+                        anchor: 'center', 
+                        align: (ctx) => {
+                            const abbr = ctx.dataset.data[ctx.dataIndex].abbr;
+                            // Căn chỉnh hướng thủ công để tránh đè chữ
+                            const aligns = {
+                                'PRC': 'left', 'SGP': 'right', 'RUS': 'bottom', 
+                                'CAN': 'bottom', 'TPE': 'right', 'VIE': 'top',
+                                'MAS': 'bottom', 'THA': 'top', 'PER': 'bottom', 'CHL': 'top'
+                            };
+                            return aligns[abbr] || 'top';
+                        }, 
+                        offset: (ctx) => ctx.dataset.data[ctx.dataIndex].r + 1 // Đẩy chữ ra ngoài bong bóng
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 12,
+                        callbacks: {
+                            label: (ctx) => {
+                                const d = ctx.raw;
+                                return [
+                                    `${d.e}:`,
+                                    `• Giá điện: $${d.x}/kWh`,
+                                    `• Tăng trưởng: +${d.y.toFixed(1)}%/năm`,
+                                    `• Nhu cầu 2026: ${d.d26} TWh`
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 4.5 Right: Doughnut Chart ---
+        const ctx4_5_Right = document.getElementById('apecChart4_5_Right').getContext('2d');
+        
+        // Tính toán Top 5 và phần còn lại
+        const sortedD26 = [...data4_5_Raw].sort((a,b) => b.d26 - a.d26);
+        const top5 = sortedD26.slice(0, 5);
+        const othersSum = sortedD26.slice(5).reduce((sum, item) => sum + item.d26, 0);
+        
+        const doughnutLabels = [...top5.map(d => d.e), 'Các nền kinh tế khác'];
+        
+        // Hệ màu đồng bộ với tiểu vùng, có điều chỉnh độ sáng để phân biệt các quốc gia cùng vùng
+        const paletteMap = {
+            'Châu Mỹ': ['#b0ebfb', '#81dcf6', '#52cdf2'], // Xanh nhạt
+            'Đông Bắc Á': ['#134675', '#1f66a8', '#348ed9'], // Xanh Navy
+            'Đông Nam Á': ['#acfde1', '#85fccf', '#5efbbd'], // Bạc hà
+            'Châu Đại Dương': ['#FF6B6B', '#ff4d4d', '#ff2e2e'] // Đỏ san hô
+        };
+        const regionIndex = {'Châu Mỹ': 0, 'Đông Bắc Á': 0, 'Đông Nam Á': 0, 'Châu Đại Dương': 0};
+        
+        const doughnutColors = top5.map(d => {
+            const color = paletteMap[d.r][regionIndex[d.r]];
+            regionIndex[d.r]++;
+            return color;
+        });
+        doughnutColors.push('#CBD5E1'); // Màu xám cho nhóm Khác
+
+        const doughnutData = [...top5.map(d => d.d26), parseFloat(othersSum.toFixed(1))];
+
+        new Chart(ctx4_5_Right, {
+            type: 'doughnut',
+            data: {
+                labels: doughnutLabels,
+                datasets: [{
+                    data: doughnutData,
+                    backgroundColor: doughnutColors,
+                    borderWidth: 2, borderColor: '#FFFFFF',
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                cutout: '60%', // Tạo không gian rỗng ở giữa vành khăn
+                layout: { padding: 10 },
+                plugins: {
+                    legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: {size: 11} } },
+                    datalabels: {
+                        color: (ctx) => {
+                            // Chữ tối cho nền sáng (Châu Mỹ, Khác), chữ trắng cho nền tối (Đông Bắc Á)
+                            const bg = ctx.dataset.backgroundColor[ctx.dataIndex];
+                            return (bg.includes('#134675') || bg.includes('#1f66a8') || bg.includes('#348ed9')) ? '#FFFFFF' : '#0F2027';
+                        },
+                        font: { weight: 'bold', size: 11 },
+                        formatter: (value, ctx) => {
+                            let sum = 0;
+                            let dataArr = ctx.chart.data.datasets[0].data;
+                            dataArr.map(data => { sum += data; });
+                            let percentage = (value*100 / sum).toFixed(1) + "%";
+                            // Chỉ hiển thị phần trăm nếu lớn hơn 4% để tránh đè chữ
+                            return (value*100 / sum) > 4 ? percentage : '';
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: {
+                            label: (ctx) => ` ${ctx.label}: ${ctx.raw} TWh`
+                        }
                     }
                 }
             }
