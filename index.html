@@ -221,23 +221,24 @@
             }
             .cover-text { display: none; }
         }
-        /* --- CSS MỚI CHO ẢNH BÌA --- */
-        .cover-image-wrapper {
-            width: 100%;
-            max-width: 1300px; /* Bằng kích thước các biểu đồ */
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(15, 32, 39, 0.08);
-            background: #FFFFFF;
-            display: flex;
-            justify-content: center;
-        }
+      /* --- CHỈNH SỬA ĐOẠN NÀY --- */
+        .cover-image-wrapper {
+            width: 100%;
+            max-width: 900px; /* Thay vì 1300px, bạn giảm xuống 900px hoặc 800px để bìa bé lại */
+            margin: 0 auto;   /* Đảm bảo bìa luôn nằm giữa trang */
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(15, 32, 39, 0.1);
+            background: #FFFFFF;
+            display: flex;
+            justify-content: center;
+        }
 
-        .cover-image-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+        .cover-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
         @media print {
             .cover-image-wrapper {
