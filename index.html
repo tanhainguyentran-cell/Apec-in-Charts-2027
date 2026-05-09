@@ -221,13 +221,48 @@
             }
             .cover-text { display: none; }
         }
+        /* --- CSS MỚI CHO ẢNH BÌA --- */
+        .cover-image-wrapper {
+            width: 100%;
+            max-width: 1300px; /* Bằng kích thước các biểu đồ */
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(15, 32, 39, 0.08);
+            background: #FFFFFF;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cover-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media print {
+            .cover-image-wrapper {
+                max-width: none;
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+                page-break-after: always;
+                page-break-inside: avoid;
+                margin: 0;
+            }
+            .cover-image-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="chart-wrapper cover-page">
-        <div class="cover-text">[TRANG BÌA]</div>
-    </div>
+   <div class="cover-image-wrapper">
+        <img src="bia-truoc.png" alt="Bìa trước APEC">
+    </div>
 
     <div class="chart-wrapper cover-page">
         <div class="cover-text">[LỜI GIỚI THIỆU]</div>
@@ -1127,9 +1162,9 @@
         <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
     </div>
 
-    <div class="chart-wrapper cover-page">
-        <div class="cover-text">[BÌA SAU]</div>
-    </div>
+<div class="cover-image-wrapper">
+        <img src="bia-sau.png" alt="Bìa sau APEC">
+    </div>
 
     <script>
         Chart.register(ChartDataLabels);
