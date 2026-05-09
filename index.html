@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APEC in Charts - Data Book</title>
-    <!-- Thư viện Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Plugin DataLabels để hiển thị số liệu trực tiếp trên biểu đồ -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <!-- Plugin Treemap cho Biểu đồ 1.1 -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@3.1.0"></script>
-    <!-- Font chữ hiện đại -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -21,7 +17,7 @@
             flex-direction: column;
             align-items: center;
             padding: 40px 20px;
-            gap: 60px; /* Khoảng cách giữa các trang khi xem trên web */
+            gap: 60px; 
         }
 
         .chart-wrapper {
@@ -29,7 +25,7 @@
             width: 100%;
             max-width: 1300px;
             aspect-ratio: 16 / 9;
-            padding: 24px; /* Giảm khoảng cách đệm viền ngoài để tăng không gian trong */
+            padding: 24px; 
             border-radius: 16px;
             box-shadow: 0 20px 40px rgba(15, 32, 39, 0.08);
             box-sizing: border-box;
@@ -38,7 +34,6 @@
             position: relative;
         }
 
-        /* Trang cấu trúc trắng (Bìa, Giới thiệu, Mục lục) */
         .cover-page {
             justify-content: center;
             align-items: center;
@@ -55,15 +50,15 @@
 
         .header {
             background-color: #134675;
-            padding: 16px 24px; /* Thu hẹp đệm khối header */
+            padding: 16px 24px; 
             border-radius: 12px;
-            margin-bottom: 12px; /* Kéo biểu đồ sát lên trên một chút */
+            margin-bottom: 12px; 
             box-shadow: 0 8px 16px rgba(19, 70, 117, 0.15);
         }
 
         .pre-title {
             color: #acfde1;
-            font-size: 12px; /* Giảm cỡ chữ */
+            font-size: 12px; 
             font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 4px;
@@ -72,9 +67,9 @@
 
         .title {
             color: #FFFFFF;
-            font-size: 16px; /* Giảm cỡ chữ tiêu đề */
+            font-size: 16px; 
             font-weight: 700;
-            margin: 0 0 6px 0; /* Ép sát chữ */
+            margin: 0 0 6px 0; 
             letter-spacing: -0.5px;
             white-space: nowrap;
             overflow: hidden;
@@ -83,21 +78,20 @@
 
         .subtitle {
             color: #F8FAFC;
-            font-size: 12px; /* Giảm cỡ chữ nội dung */
+            font-size: 12px; 
             font-weight: 400;
             margin: 0;
-            line-height: 1.4; /* Khoảng cách dòng khít hơn */
-            text-align: justify; /* Căn đều lề văn bản */
+            line-height: 1.4; 
+            text-align: justify; 
         }
 
         .canvas-container {
             flex-grow: 1;
             position: relative;
             width: 100%;
-            min-height: 300px; /* Hạ chiều cao tối thiểu để Canvas linh hoạt co giãn không làm tràn khung 16:9 */
+            min-height: 300px; 
         }
 
-        /* Khung chờ cho các biểu đồ chưa có dữ liệu */
         .placeholder-box {
             display: flex;
             align-items: center;
@@ -111,18 +105,17 @@
             font-size: 13px;
             font-weight: 500;
             font-style: italic;
-            text-align: justify; /* Căn đều lề văn bản */
+            text-align: justify; 
         }
 
         .footnote {
-            margin-top: 8px; /* Ép sát vào đáy biểu đồ */
+            margin-top: 8px; 
             text-align: right;
-            font-size: 11px; /* Nhỏ gọn hơn */
+            font-size: 11px; 
             color: #64748B;
             font-style: italic;
         }
 
-        /* --- CSS CHO TRANG MỤC LỤC ĐÃ ĐƯỢC LÀM ĐẸP --- */
         .toc-title {
             color: #134675;
             text-align: center;
@@ -141,10 +134,10 @@
             text-align: left; 
         }
         .toc-group {
-            background: #F8FAFC; /* Nền xám rất nhẹ dạng thẻ */
+            background: #F8FAFC; 
             border-radius: 8px;
             padding: 16px 20px;
-            border-left: 4px solid #134675; /* Viền trái nhấn mạnh */
+            border-left: 4px solid #134675; 
             box-shadow: 0 2px 8px rgba(15, 32, 39, 0.03);
             margin-bottom: 16px; 
             transition: transform 0.2s, box-shadow 0.2s;
@@ -152,7 +145,7 @@
         .toc-group:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(15, 32, 39, 0.08);
-            border-left-color: #acfde1; /* Đổi màu viền khi hover */
+            border-left-color: #acfde1; 
         }
         .toc-group-title {
             color: #134675;
@@ -160,7 +153,7 @@
             font-weight: 700;
             margin: 0 0 12px 0;
             padding-bottom: 8px;
-            border-bottom: 1px dashed #CBD5E1; /* Gạch dưới đứt nét */
+            border-bottom: 1px dashed #CBD5E1; 
             text-transform: uppercase;
         }
         .toc-list {
@@ -182,14 +175,13 @@
         }
         .toc-list li::before {
             content: '•';
-            color: #FF6B6B; /* Chấm tròn màu Coral */
+            color: #FF6B6B; 
             position: absolute;
             left: 0;
             font-size: 16px;
             top: -2px;
         }
 
-        /* --- Style cho hộp Threshold của biểu đồ 3.4 --- */
         .threshold-box {
             display: flex;
             gap: 16px;
@@ -209,7 +201,6 @@
         .t-yellow { color: #F5A623; font-weight: bold; }
         .t-green { color: #20C997; font-weight: bold; }
 
-        /* Hỗ trợ xuất file PDF / In ấn cắt trang hoàn hảo */
         @media print {
             body { 
                 background-color: #FFFFFF; 
@@ -225,30 +216,26 @@
                 height: 100vh;
                 max-width: none;
                 aspect-ratio: auto;
-                page-break-after: always; /* Cắt trang tại đây */
+                page-break-after: always; 
                 page-break-inside: avoid;
             }
-            .cover-text { display: none; /* Ẩn chữ nháp khi in thật */ }
+            .cover-text { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ================== 1. TRANG BÌA ================== -->
     <div class="chart-wrapper cover-page">
         <div class="cover-text">[TRANG BÌA]</div>
     </div>
 
-    <!-- ================== 2. TRANG LỜI GIỚI THIỆU ================== -->
     <div class="chart-wrapper cover-page">
         <div class="cover-text">[LỜI GIỚI THIỆU]</div>
     </div>
 
-    <!-- ================== 3. TRANG MỤC LỤC ĐÃ ĐƯỢC LÀM LẠI ================== -->
     <div class="chart-wrapper" style="justify-content: center; padding: 40px;">
         <h1 class="toc-title">Mục lục Báo cáo</h1>
         <div class="toc-container">
-            <!-- Cột 1 -->
             <div>
                 <div class="toc-group">
                     <h2 class="toc-group-title">1. Vị thế Toàn cầu & Cấu trúc Nhân khẩu</h2>
@@ -278,7 +265,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- Cột 2 -->
             <div>
                 <div class="toc-group">
                     <h2 class="toc-group-title">4. Bao trùm & Thách thức Dân số già</h2>
@@ -304,17 +290,15 @@
         </div>
     </div>
 
-    <!-- ================== NHÓM 1 ================== -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">1. Nhóm Dữ liệu Vị thế Toàn cầu & Cấu trúc Nhân khẩu</div>
             <h1 class="title">Biểu đồ 1.1: Phân bổ Trọng số GDP và Quy mô Dân số APEC trong Tương quan Toàn cầu</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> Dữ liệu cho thấy sự bất đối xứng rõ rệt giữa quy mô kinh tế và nhân khẩu học tại các tiểu vùng. Trong khi Châu Mỹ và Đông Bắc Á đóng góp tỷ trọng áp đảo vào tổng GDP thực của toàn khối (nhờ năng suất và công nghệ vượt trội), thì lực lượng dân số lại phân bổ đậm đặc tại Đông Bắc Á và Đông Nam Á. Điều này phản ánh tiềm năng dịch chuyển động lực tăng trưởng dài hạn về phía châu Á, nơi sở hữu thị trường tiêu dùng khổng lồ và lực lượng lao động dồi dào.</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Dữ liệu cho thấy sự bất đối xứng rõ rệt giữa quy mô kinh tế và nhân khẩu học tại các tiểu vùng. Trong khi Châu Mỹ và Đông Bắc Á đóng góp tỷ trọng áp đảo vào tổng GDP thực của toàn khối (nhờ năng suất và công nghệ vượt trội), thì lực lượng dân số lại phân bổ đậm đặc tại Đông Bắc Á và Đông Nam Á. Điều này phản ánh tiềm năng dịch chuyển động lực tăng trưởng dài hạn về phía châu châu Á, nơi sở hữu thị trường tiêu dùng khổng lồ và lực lượng lao động dồi dào.</p>
         </div>
         
         <div class="canvas-container" style="display: flex; flex-direction: column; gap: 8px;">
             <div style="display: flex; gap: 16px; flex-grow: 1;">
-                <!-- Biểu đồ 1: Treemap GDP -->
                 <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 12px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 8px 0; font-size: 13px; color: #134675; text-align: center;">Quy mô GDP Thực 2026* (Tỷ USD)</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -322,7 +306,6 @@
                     </div>
                 </div>
 
-                <!-- Biểu đồ 2: Treemap Dân số -->
                 <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 12px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 8px 0; font-size: 13px; color: #134675; text-align: center;">Quy mô Dân số 2026* (Triệu người)</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -331,7 +314,6 @@
                 </div>
             </div>
             
-            <!-- Chú thích màu dùng chung cho cả 2 biểu đồ -->
             <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; font-size: 12px; color: #475569; font-weight: 600;">
                 <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #b0ebfb; margin-right: 6px; border-radius: 3px;"></span>Châu Mỹ</div>
                 <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #134675; margin-right: 6px; border-radius: 3px;"></span>Đông Bắc Á</div>
@@ -343,7 +325,6 @@
         <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
     </div>
 
-    <!-- BIỂU ĐỒ 1.2 -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">1. Nhóm Dữ liệu Vị thế Toàn cầu & Cấu trúc Nhân khẩu</div>
@@ -352,20 +333,16 @@
         </div>
         
         <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
-            <!-- CỘT TRÁI (Overview Bubbles & Dumbbell) -->
             <div style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
-                <!-- Text chỉ số lớn 2026 -->
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span style="font-size: 46px; font-weight: 800; color: #134675; line-height: 1;">47,4%</span>
                     <span style="font-size: 12px; color: #475569; max-width: 160px; line-height: 1.3; text-align: left;">của tổng thương mại toàn cầu năm 2026*</span>
                 </div>
 
-                <!-- Nested Bubbles -->
                 <div style="background-color: #F8FAFC; border-radius: 12px; padding: 12px; border: 1px dashed #CBD5E1; display: flex; flex-direction: column; align-items: center;">
                     <h3 style="margin: 0 0 12px 0; font-size: 11px; color: #134675; text-transform: uppercase; width: 100%; text-align: left;">Kim ngạch Thương mại, 2024 - 2026*</h3>
                     
                     <div style="display: flex; gap: 30px; align-items: flex-end; justify-content: center; width: 100%;">
-                        <!-- Bong bóng 2024 -->
                         <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
                             <div style="font-size: 11px; color: #64748B; margin-bottom: 6px; font-weight: 600;">2024</div>
                             <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
@@ -376,7 +353,6 @@
                             </div>
                         </div>
 
-                        <!-- Bong bóng 2026 -->
                         <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
                             <div style="font-size: 12px; color: #134675; margin-bottom: 6px; font-weight: 800;">2026*</div>
                             <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
@@ -394,7 +370,6 @@
                     </div>
                 </div>
 
-                <!-- Dumbbell Plot -->
                 <div style="flex-grow: 1; background-color: #F8FAFC; border-radius: 12px; padding: 12px 16px; border: 1px dashed #CBD5E1; display: flex; flex-direction: column; justify-content: center;">
                     <div style="display: flex; padding-left: 80px; font-size: 10px; color: #64748B; font-weight: 600; margin-bottom: 8px;">
                         <div style="flex: 1; text-align: center;">2024</div>
@@ -402,7 +377,6 @@
                         <div style="flex: 1; text-align: center;">2026*</div>
                     </div>
                     
-                    <!-- Line 1: Châu Mỹ -->
                     <div style="display: flex; align-items: center; padding: 6px 0;">
                         <div style="width: 80px; font-size: 11px; color: #475569; font-weight: 600;">Châu Mỹ</div>
                         <div style="flex-grow: 1; display: flex; align-items: center; position: relative;">
@@ -419,7 +393,6 @@
                         </div>
                     </div>
 
-                    <!-- Line 2: Đông Bắc Á -->
                     <div style="display: flex; align-items: center; padding: 6px 0;">
                         <div style="width: 80px; font-size: 11px; color: #475569; font-weight: 600;">Đông Bắc Á</div>
                         <div style="flex-grow: 1; display: flex; align-items: center; position: relative;">
@@ -436,7 +409,6 @@
                         </div>
                     </div>
 
-                    <!-- Line 3: Đông Nam Á -->
                     <div style="display: flex; align-items: center; padding: 6px 0;">
                         <div style="width: 80px; font-size: 11px; color: #475569; font-weight: 600;">Đông Nam Á</div>
                         <div style="flex-grow: 1; display: flex; align-items: center; position: relative;">
@@ -453,7 +425,6 @@
                         </div>
                     </div>
 
-                    <!-- Line 4: Châu Đại Dương -->
                     <div style="display: flex; align-items: center; padding: 6px 0;">
                         <div style="width: 80px; font-size: 11px; color: #475569; font-weight: 600;">Châu Đ.Dương</div>
                         <div style="flex-grow: 1; display: flex; align-items: center; position: relative;">
@@ -472,15 +443,12 @@
                 </div>
             </div>
 
-            <!-- CỘT PHẢI (Treemaps) -->
             <div style="flex: 1.2; display: flex; flex-direction: column; gap: 12px;">
-                <!-- Text chỉ số lớn 2026 -->
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span style="font-size: 46px; font-weight: 800; color: #134675; line-height: 1;">33,3</span>
                     <span style="font-size: 12px; color: #475569; max-width: 250px; line-height: 1.3; text-align: left;">Nghìn tỷ USD thương mại khối APEC năm 2026*</span>
                 </div>
 
-                <!-- Chú thích chung Treemap NHƯ ẢNH MẪU -->
                 <div style="display: flex; justify-content: space-between; font-size: 11px; color: #475569; font-weight: 700; border-bottom: 1px solid #E2E8F0; padding-bottom: 8px;">
                     <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #134675; margin-right: 6px; border-radius: 2px;"></span>Đông Bắc Á</div>
                     <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #acfde1; margin-right: 6px; border-radius: 2px;"></span>Đông Nam Á</div>
@@ -488,7 +456,6 @@
                     <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #b0ebfb; margin-right: 6px; border-radius: 2px;"></span>Châu Mỹ</div>
                 </div>
 
-                <!-- Treemap 2026 (Chính, To hơn) -->
                 <div style="flex: 1.5; background-color: #F8FAFC; border-radius: 12px; border: 1px solid #CBD5E1; padding: 8px; display: flex; flex-direction: column; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
                     <h3 style="margin: 0 0 4px 0; font-size: 12px; color: #134675; text-align: center;">CƠ CẤU THƯƠNG MẠI NĂM 2026*</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -496,7 +463,6 @@
                     </div>
                 </div>
 
-                <!-- Treemap 2024 (So sánh, Nhỏ hơn) -->
                 <div style="flex: 1; background-color: #F8FAFC; border-radius: 12px; border: 1px dashed #CBD5E1; padding: 8px; display: flex; flex-direction: column;">
                     <h3 style="margin: 0 0 4px 0; font-size: 12px; color: #134675; text-align: center;">CƠ CẤU THƯƠNG MẠI NĂM 2024</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -508,7 +474,6 @@
         <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
     </div>
 
-    <!-- BIỂU ĐỒ 1.3 ĐÃ ĐƯỢC HOÀN THIỆN -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">1. Nhóm Dữ liệu Vị thế Toàn cầu & Cấu trúc Nhân khẩu</div>
@@ -518,7 +483,6 @@
 
         <div class="canvas-container" style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
             
-            <!-- Dải Chỉ số nổi bật (Top Metrics) -->
             <div style="display: flex; justify-content: space-between; background: #F8FAFC; padding: 12px 24px; border-radius: 12px; border: 1px solid #E2E8F0;">
                 <div style="text-align: center;">
                     <div style="font-size: 11px; color: #64748B; font-weight: 600; text-transform: uppercase;">Tổng Dân số APEC (2026*)</div>
@@ -534,10 +498,8 @@
                 </div>
             </div>
 
-            <!-- Vùng chứa 2 biểu đồ phân tích -->
             <div style="display: flex; gap: 20px; flex-grow: 1;">
                 
-                <!-- Chart 1.3A: Cấu trúc độ tuổi (100% Stacked Bar) -->
                 <div style="flex: 1.2; display: flex; flex-direction: column; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 8px 0; font-size: 13px; color: #134675; text-align: center;">Cấu trúc Độ tuổi theo Khu vực (Dự phóng 2026*)</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -545,7 +507,6 @@
                     </div>
                 </div>
 
-                <!-- Chart 1.3B: Tỷ lệ giới tính (Line Chart) -->
                 <div style="flex: 1; display: flex; flex-direction: column; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 8px 0; font-size: 13px; color: #134675; text-align: center;">Biến động Tỷ lệ Giới tính (Nam/100 Nữ)</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -558,7 +519,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- ================== NHÓM 2 ================== -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">2. Nhóm Dữ liệu Cấu trúc Nền kinh tế & Năng suất</div>
@@ -568,10 +528,8 @@
         
         <div class="canvas-container" style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
             
-            <!-- Vùng chứa 2 biểu đồ phân tích -->
             <div style="display: flex; gap: 20px; flex-grow: 1;">
                 
-                <!-- Chart 2.1 Left: Line Chart (Trend Averages) -->
                 <div style="flex: 1; display: flex; flex-direction: column; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 8px 0; font-size: 13px; color: #134675; text-align: center;">Tốc độ Tăng trưởng Trung bình Toàn cầu và APEC (2024 - 2026*)</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -579,11 +537,9 @@
                     </div>
                 </div>
 
-                <!-- Chart 2.1 Right: Horizontal Combo Chart (21 Economies) -->
                 <div style="flex: 2; display: flex; flex-direction: column; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 4px 0; font-size: 13px; color: #134675; text-align: center;">Tốc độ Tăng trưởng theo 21 Nền kinh tế Thành viên (Dự phóng 2026*)</h3>
                     
-                    <!-- Chú thích riêng cho biểu đồ phải -->
                     <div style="display: flex; justify-content: space-between; font-size: 10px; color: #475569; font-weight: 600; padding: 0 10px 8px 10px; border-bottom: 1px dashed #E2E8F0; margin-bottom: 8px;">
                         <div style="display: flex; gap: 12px;">
                             <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #E2E8F0; border: 1px solid #94A3B8; margin-right: 4px; border-radius: 2px;"></span>Cột: GDP Thực tế</div>
@@ -607,7 +563,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 2.2 MỚI THÊM VÀO -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">2. Nhóm Dữ liệu Cấu trúc Nền kinh tế & Năng suất</div>
@@ -616,7 +571,6 @@
         </div>
         <div class="canvas-container" style="display: flex; flex-direction: column;">
             
-            <!-- Chú thích riêng của Biểu đồ 2.2 -->
             <div style="display: flex; justify-content: center; gap: 20px; font-size: 12px; color: #475569; font-weight: 600; padding-bottom: 12px;">
                 <div style="display: flex; align-items: center;"><span style="width: 14px; height: 14px; background: #134675; margin-right: 6px; border-radius: 3px;"></span>Dịch vụ</div>
                 <div style="display: flex; align-items: center;"><span style="width: 14px; height: 14px; background: #acfde1; margin-right: 6px; border-radius: 3px;"></span>CN Chế biến, Chế tạo</div>
@@ -632,7 +586,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 2.3 - ĐÃ CÓ DỮ LIỆU -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">2. Nhóm Dữ liệu Cấu trúc Nền kinh tế & Năng suất</div>
@@ -645,7 +598,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 2.4 MỚI CẬP NHẬT -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">2. Nhóm Dữ liệu Cấu trúc Nền kinh tế & Năng suất</div>
@@ -654,7 +606,6 @@
         </div>
         <div class="canvas-container" style="display: flex; flex-direction: column;">
             
-            <!-- Chú thích riêng của Biểu đồ 2.4 -->
             <div style="display: flex; justify-content: center; gap: 20px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 12px; border-bottom: 1px dashed #E2E8F0; margin-bottom: 12px;">
                 <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #134675; margin-right: 6px; border-radius: 2px;"></span>Đông Bắc Á</div>
                 <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #acfde1; margin-right: 6px; border-radius: 2px;"></span>Đông Nam Á</div>
@@ -670,7 +621,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 2.5 MỚI -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">2. Nhóm Dữ liệu Cấu trúc Nền kinh tế & Năng suất</div>
@@ -678,10 +628,8 @@
             <p class="subtitle"><b>Phân tích xu hướng:</b> Biểu đồ cho thấy bức tranh đa chiều về thị trường lao động. Tỷ lệ thất nghiệp chính thức (LU1) của đa số các nền kinh tế được duy trì ở mức tương đối thấp. Tuy nhiên, khi đối chiếu với tỷ lệ thiếu việc làm hỗn hợp (LU4 - bao gồm cả những người nản lòng hoặc làm việc dưới khả năng), khoảng cách chênh lệch bộc lộ rõ rệt. Các quốc gia như Chile, Peru, Papua New Guinea và Philippines ghi nhận mức LU4 lên tới 13-15%, phản ánh tình trạng dư thừa lao động tiềm ẩn rất lớn. Xu hướng từ 2024 đến 2026 cho thấy thị trường có sự giằng co nhưng cấu trúc khoảng cách LU1-LU4 vẫn chưa được thu hẹp đáng kể.</p>
         </div>
         
-        <!-- Bố cục 2 biểu đồ cột ngang đặt cạnh nhau -->
         <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
             
-            <!-- Biểu đồ Trái: LU1 -->
             <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px dashed #CBD5E1;">
                 <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Tỷ lệ Thất nghiệp Tự nhiên (LU1)</h3>
                 <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px; font-size: 11px; color: #475569; font-weight: 600;">
@@ -694,7 +642,6 @@
                 </div>
             </div>
 
-            <!-- Biểu đồ Phải: LU4 -->
             <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px dashed #CBD5E1;">
                 <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Tỷ lệ Thiếu việc làm Hỗn hợp (LU4)</h3>
                 <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px; font-size: 11px; color: #475569; font-weight: 600;">
@@ -711,7 +658,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- ================== NHÓM 3 ================== -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">3. Nhóm Dữ liệu Hạ tầng Kết nối Số</div>
@@ -721,7 +667,6 @@
         
         <div class="canvas-container" style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
             
-            <!-- Dải Chỉ số nổi bật (4 Metrics) -->
             <div style="display: flex; justify-content: space-between; background: #F8FAFC; padding: 12px 16px; border-radius: 12px; border: 1px solid #E2E8F0; gap: 12px;">
                 <div style="flex: 1; text-align: center; border-right: 1px solid #CBD5E1;">
                     <div style="font-size: 10px; color: #64748B; font-weight: 600; text-transform: uppercase;">Tổng Giao thương (2026*)</div>
@@ -745,10 +690,8 @@
                 </div>
             </div>
 
-            <!-- Vùng chứa 2 biểu đồ phân tích -->
             <div style="display: flex; gap: 20px; flex-grow: 1;">
                 
-                <!-- Chart 3.1 Left: Combo Chart (Value & Total Growth) -->
                 <div style="flex: 1.2; display: flex; flex-direction: column; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Cơ cấu Quy mô và Tăng trưởng Thương mại APEC</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -756,7 +699,6 @@
                     </div>
                 </div>
 
-                <!-- Chart 3.1 Right: Line Chart (Sub-region Growth over 3 years) -->
                 <div style="flex: 1; display: flex; flex-direction: column; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Tốc độ Tăng trưởng Biên theo Tiểu vùng (2024 - 2026*)</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -766,21 +708,18 @@
 
             </div>
         </div>
-        <!-- Footnote -->
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 3.2 MỚI ĐÃ ĐƯỢC TỐI ƯU HÓA BẰNG TREEMAP -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">3. Nhóm Dữ liệu Hạ tầng Kết nối Số</div>
             <h1 class="title">Biểu đồ 3.2: Phân rã Lưu lượng Thương mại Dịch vụ Phân phối qua Nền tảng Kỹ thuật số (2024 - 2026*)</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> Lưu lượng thương mại dịch vụ kỹ thuật số cho thấy sự thống trị tuyệt đối của Hoa Kỳ (USA - dự phóng đạt 827,8 tỷ USD vào năm 2026), vượt xa hoàn toàn so với phần còn lại. Nhóm bám đuổi dẫn đầu bởi Trung Quốc (PRC), Singapore (SGP) và Nhật Bản (JPN). Đáng chú ý, Singapore dù có quy mô dân số và lãnh thổ khiêm tốn nhưng lại đạt kim ngạch dịch vụ kỹ thuật số khổng lồ (243,7 tỷ USD), khẳng định vị thế trung tâm công nghệ và tài chính đầu não của khu vực. Các nền kinh tế đang phát triển tại Đông Nam Á và Mỹ Latinh ghi nhận tốc độ tăng trưởng ổn định nhưng quy mô tuyệt đối vẫn còn khá nhỏ.</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Lưu lượng thương mại dịch vụ kỹ thuật số cho thấy sự thống trị tuyệt đối của Hoa Kỳ (USA - dự phóng đạt 827,8 tỷ USD vào năm 2026), vượt xa hoàn toàn so với phần còn lại. Nhóm bám đuổi dẫn đầu bởi Trung Quốc (PRC), Singapore (SGP) và Nhật Bản (JPN). Đáng chú ý, Singapore dù có quy mô dân số và lãnh thổ khiêm tốn nhưng lại đạt kim ngạch dịch vụ kỹ thuật số khổng lồ (243,7 tỷ USD), khẳng định vị thế trung tâm công nghệ và tài chính đầu đầu của khu vực. Các nền kinh tế đang phát triển tại Đông Nam Á và Mỹ Latinh ghi nhận tốc độ tăng trưởng ổn định nhưng quy mô tuyệt đối vẫn còn khá nhỏ.</p>
         </div>
         
         <div class="canvas-container" style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
             
-            <!-- Dải Chỉ số nổi bật (Top Metrics) -->
             <div style="display: flex; justify-content: space-between; background: #F8FAFC; padding: 12px 24px; border-radius: 12px; border: 1px solid #E2E8F0;">
                 <div style="text-align: center;">
                     <div style="font-size: 11px; color: #64748B; font-weight: 600; text-transform: uppercase;">Cường quốc Dịch vụ Số #1</div>
@@ -796,11 +735,9 @@
                 </div>
             </div>
 
-            <!-- Chart 3.2: Treemap Chart -->
             <div style="flex-grow: 1; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0; display: flex; flex-direction: column;">
                 <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Bản đồ Quy mô Dịch vụ Kỹ thuật số năm 2026* (Tỷ USD)</h3>
                 
-                <!-- Chú thích Tiểu vùng -->
                 <div style="display: flex; justify-content: center; gap: 20px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px; margin-bottom: 8px;">
                     <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #134675; margin-right: 6px; border-radius: 2px;"></span>Đông Bắc Á</div>
                     <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #acfde1; margin-right: 6px; border-radius: 2px;"></span>Đông Nam Á</div>
@@ -808,7 +745,6 @@
                     <div style="display: flex; align-items: center;"><span style="width: 12px; height: 12px; background: #FF6B6B; margin-right: 6px; border-radius: 2px;"></span>Châu Đại Dương</div>
                 </div>
                 
-                <!-- Bỏ min-height 600px để chống tràn viền -->
                 <div style="flex-grow: 1; position: relative;">
                     <canvas id="chart3_2"></canvas>
                 </div>
@@ -818,7 +754,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 3.3 -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">3. Nhóm Dữ liệu Hạ tầng Kết nối Số</div>
@@ -838,7 +773,6 @@
         <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
     </div>
 
-    <!-- BIỂU ĐỒ 3.4 -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">3. Nhóm Dữ liệu Hạ tầng Kết nối Số</div>
@@ -846,7 +780,6 @@
             <p class="subtitle">Phân loại mức độ ảnh hưởng của chính sách CBAM đối với kim ngạch xuất khẩu Hàng hóa Môi trường (EIG) dựa trên hệ số tương quan thực nghiệm (r).</p>
         </div>
         <div class="canvas-container" style="display: flex; flex-direction: column;">
-            <!-- Ngưỡng đánh giá chiến lược -->
             <div class="threshold-box">
                 <div class="threshold-item">
                     <span class="t-red">1. Vùng Đỏ (Rủi ro cao - r < -0,7):</span><br>
@@ -870,7 +803,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- ================== NHÓM 4 ================== -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">4. Nhóm Dữ liệu Bao trùm & Thách thức Dân số già</div>
@@ -879,10 +811,8 @@
         </div>
         <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
             
-            <!-- Biểu đồ 4.1 Left: Scatter Matrix 2026 -->
             <div style="flex: 2.5; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
                 <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Ma trận Phân bổ LIS và Tăng trưởng Năng suất (Dự phóng 2026*)</h3>
-                <!-- Chú thích riêng của Scatter 4.1 -->
                 <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
                     <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #134675; border-radius: 50%; margin-right: 4px;"></span>Đông Bắc Á</div>
                     <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #acfde1; border-radius: 50%; margin-right: 4px;"></span>Đông Nam Á</div>
@@ -894,7 +824,6 @@
                 </div>
             </div>
 
-            <!-- Biểu đồ 4.1 Right: Bar/Line Combo Trend -->
             <div style="flex: 1.5; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
                 <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Xu hướng Trung bình APEC vs Toàn cầu (2024 - 2026*)</h3>
                 <div style="flex-grow: 1; position: relative;">
@@ -906,7 +835,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 4.2 MỚI -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">4. Nhóm Dữ liệu Bao trùm & Thách thức Dân số già</div>
@@ -915,7 +843,6 @@
         </div>
         <div class="canvas-container" style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
             
-            <!-- Dải Chỉ số nổi bật (Top Metrics) -->
             <div style="display: flex; justify-content: space-between; background: #F8FAFC; padding: 12px 24px; border-radius: 12px; border: 1px solid #E2E8F0;">
                 <div style="text-align: center;">
                     <div style="font-size: 11px; color: #64748B; font-weight: 600; text-transform: uppercase;">Tỷ lệ Internet APEC (2026*)</div>
@@ -931,10 +858,8 @@
                 </div>
             </div>
 
-            <!-- Vùng chứa 2 biểu đồ phân tích -->
             <div style="display: flex; gap: 20px; flex-grow: 1;">
                 
-                <!-- Chart 4.2 Left: Bar + Point (21 Economies) -->
                 <div style="flex: 2; display: flex; flex-direction: column; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 4px 0; font-size: 13px; color: #134675; text-align: center;">Độ trễ Hạ tầng Số theo Nền kinh tế (Dự phóng 2026*)</h3>
                     <div style="display: flex; justify-content: space-between; font-size: 10px; color: #475569; font-weight: 600; padding: 0 10px 8px 10px; border-bottom: 1px dashed #E2E8F0; margin-bottom: 8px;">
@@ -954,7 +879,6 @@
                     </div>
                 </div>
 
-                <!-- Chart 4.2 Right: Line Trend -->
                 <div style="flex: 1; display: flex; flex-direction: column; background-color: #FFFFFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0;">
                     <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Xu hướng APEC vs Toàn Cầu</h3>
                     <div style="flex-grow: 1; position: relative;">
@@ -967,7 +891,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 4.3 MỚI CẬP NHẬT -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">4. Nhóm Dữ liệu Bao trùm & Thách thức Dân số già</div>
@@ -976,7 +899,6 @@
         </div>
         <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
             
-            <!-- Biểu đồ 4.3 Left: Treemap Chart -->
             <div style="flex: 1.2; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
                 <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Bản đồ Phân bổ Vốn hóa Kỳ lân (Dự phóng 2026*)</h3>
                 <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
@@ -990,7 +912,6 @@
                 </div>
             </div>
 
-            <!-- Biểu đồ 4.3 Right: Trend Stacked Bar + Line -->
             <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
                 <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Đà Tăng trưởng Số lượng & Vốn hóa toàn APEC</h3>
                 <div style="flex-grow: 1; position: relative;">
@@ -1002,7 +923,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 4.4 MỚI CẬP NHẬT -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">4. Nhóm Dữ liệu Bao trùm & Thách thức Dân số già</div>
@@ -1011,7 +931,6 @@
         </div>
         <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
             
-            <!-- Biểu đồ 4.4 Left: Trend Line -->
             <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
                 <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Xu hướng Chuyển đổi EV (2024 - 2026*)</h3>
                 <div style="flex-grow: 1; position: relative;">
@@ -1019,7 +938,6 @@
                 </div>
             </div>
 
-            <!-- Biểu đồ 4.4 Right: Horizontal Bar 2026 -->
             <div style="flex: 1.5; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
                 <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Thị phần EV Dự phóng theo Nền kinh tế (2026*)</h3>
                 <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
@@ -1037,7 +955,6 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- BIỂU ĐỒ 4.5 MỚI -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">4. Nhóm Dữ liệu Bao trùm & Thách thức Dân số già</div>
@@ -1046,7 +963,6 @@
         </div>
         <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
             
-            <!-- Biểu đồ 4.5 Left: Bubble Chart -->
             <div style="flex: 2; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
                 <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Tương quan Giá điện và Động lực Tăng trưởng Nhu cầu AI (2024-2026)</h3>
                 <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
@@ -1061,7 +977,6 @@
                 </div>
             </div>
 
-            <!-- Biểu đồ 4.5 Right: Doughnut Chart -->
             <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
                 <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Thị phần Tiêu thụ Năng lượng AI (Dự phóng 2026)</h3>
                 <div style="flex-grow: 1; position: relative; display: flex; justify-content: center; align-items: center;">
@@ -1073,85 +988,155 @@
         <div class="footnote"></div>
     </div>
 
-    <!-- ================== NHÓM 5 ================== -->
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">5. Nhóm Dữ liệu Tài chính Xanh</div>
             <h1 class="title">Biểu đồ 5.1: Tổng Giá trị Phát hành và Cơ cấu Tiền tệ của Dòng Trái phiếu Xanh, Xã hội và Bền vững</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> [Nhập nội dung phân tích chi tiết cho biểu đồ 5.1 tại đây...]</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Toàn khối APEC ghi nhận đà phục hồi mạnh mẽ trong hoạt động phát hành trái phiếu bền vững. Mặc dù năm 2025 có sự chững lại do chính sách lãi suất toàn cầu, dự phóng 2026 cho thấy quy mô phát hành sẽ vượt mức 524 Tỷ USD. Trong đó, Trung Quốc và Hoa Kỳ tiếp tục là 2 quốc gia dẫn đầu đóng vai trò trụ cột trong việc cung cấp nguồn vốn lớn phục vụ các dự án giảm thiểu phát thải và chuyển đổi năng lượng.</p>
         </div>
-        <div class="canvas-container">
-            <div class="placeholder-box">Vùng chờ: Cập nhật mã nguồn và số liệu Biểu đồ 5.1 vào đây</div>
+        <div class="canvas-container" style="display: flex; gap: 20px; flex-grow: 1; width: 100%; min-height: 0;">
+            <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Tổng Giá trị Phát hành toàn APEC (Tỷ USD)</h3>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart5_1_Left"></canvas>
+                </div>
+            </div>
+            
+            <div style="flex: 2; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Quy mô Phát hành Dự phóng 2026* (Tỷ USD)</h3>
+                <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #134675; margin-right: 4px; border-radius: 2px;"></span>Đông Bắc Á</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #acfde1; margin-right: 4px; border-radius: 2px;"></span>Đông Nam Á</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #b0ebfb; margin-right: 4px; border-radius: 2px;"></span>Châu Mỹ</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #FF6B6B; margin-right: 4px; border-radius: 2px;"></span>Châu Đ.Dương</div>
+                </div>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart5_1_Right"></canvas>
+                </div>
+            </div>
         </div>
-        <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
+        <div class="footnote"></div>
     </div>
 
-    <div class="chart-wrapper">
+  <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">5. Nhóm Dữ liệu Tài chính Xanh</div>
             <h1 class="title">Biểu đồ 5.2: Phân tích Chênh lệch Lợi suất Xanh trung bình trên Thị trường Vốn Đầu tư Gián tiếp (FII)</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> [Nhập nội dung phân tích chi tiết cho biểu đồ 5.2 tại đây...]</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Dữ liệu cho thấy hiện tượng "Greenium" (chênh lệch lợi suất âm) đang lan rộng và khắc sâu tại hầu hết các nền kinh tế APEC. Các thị trường mới nổi như Chile, Indonesia, Việt Nam và Trung Quốc ghi nhận mức Greenium sâu nhất (từ -7.5 đến -11.2 bps vào năm 2026), phản ánh nhu cầu vượt trội của giới đầu tư quốc tế đối với tài sản xanh tại các khu vực này. Trong khi đó, các thị trường phát triển (Mỹ, Nhật, Úc) có mức chênh lệch hẹp hơn do thanh khoản dồi dào và thị trường trái phiếu đã bão hòa.</p>
         </div>
-        <div class="canvas-container">
-            <div class="placeholder-box">Vùng chờ: Cập nhật mã nguồn và số liệu Biểu đồ 5.2 vào đây</div>
+        
+        <!-- Đã sửa: Thêm flex: 1 1 0%; và box-sizing: border-box; -->
+        <div class="canvas-container" style="position: relative; width: 100%; flex: 1 1 0%; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1; box-sizing: border-box; min-height: 0;">
+            
+            <!-- Đã sửa: Thêm flex-shrink: 0; để phần chú thích không bị ép nhỏ -->
+            <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px; flex-shrink: 0;">
+                <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #b0ebfb; margin-right: 4px; border-radius: 2px;"></span>2024</div>
+                <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #acfde1; margin-right: 4px; border-radius: 2px;"></span>2025</div>
+                <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #134675; margin-right: 4px; border-radius: 2px;"></span>2026*</div>
+            </div>
+            
+            <!-- Đã sửa: Thêm flex: 1 1 0%; và width: 100%; -->
+            <div style="position: relative; flex: 1 1 0%; min-height: 0; width: 100%;">
+                <canvas id="apecChart5_2"></canvas>
+            </div>
+            
         </div>
-        <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
+        <div class="footnote"></div>
     </div>
-
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">5. Nhóm Dữ liệu Tài chính Xanh</div>
             <h1 class="title">Biểu đồ 5.3: Sự phân hóa Chi phí Vốn Bình quân Gia quyền (WACC) của các Dự án Năng lượng Tái tạo</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> [Nhập nội dung phân tích chi tiết cho biểu đồ 5.3 tại đây...]</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Dữ liệu cho thấy "Khoảng cách rủi ro tài chính" giữa các nước phát triển và đang phát triển trong APEC vẫn duy trì ở mức cao (xấp xỉ 280 bps). Tại nhóm phát triển (Nhật Bản, Mỹ, Singapore...), dòng vốn rẻ giúp WACC duy trì ổn định dưới 7%. Ngược lại, nhóm đang phát triển phải đối mặt với WACC cao từ 8.5% - 16%, cản trở khả năng cạnh tranh của các dự án năng lượng tái tạo khi chi phí vay mượn chiếm tỷ trọng lớn.</p>
         </div>
-        <div class="canvas-container">
-            <div class="placeholder-box">Vùng chờ: Cập nhật mã nguồn và số liệu Biểu đồ 5.3 vào đây</div>
+        <div class="canvas-container" style="display: flex; gap: 20px; flex-grow: 1; width: 100%; min-height: 0;">
+            <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Chênh lệch Chi phí Vốn (Developed vs Developing)</h3>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart5_3_Left"></canvas>
+                </div>
+            </div>
+            
+            <div style="flex: 2; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">WACC Năng lượng Tái tạo Dự phóng 2026* (%)</h3>
+                <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #134675; margin-right: 4px; border-radius: 2px;"></span>Nhóm Phát triển</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #FF6B6B; margin-right: 4px; border-radius: 2px;"></span>Nhóm Đang phát triển</div>
+                </div>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart5_3_Right"></canvas>
+                </div>
+            </div>
         </div>
-        <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
+        <div class="footnote"></div>
     </div>
 
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">5. Nhóm Dữ liệu Tài chính Xanh</div>
             <h1 class="title">Biểu đồ 5.4: Tỷ lệ Các Tổ chức Niêm yết Tuân thủ Khung Báo cáo Dữ liệu Bền vững (ISSB/TCFD)</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> [Nhập nội dung phân tích chi tiết cho biểu đồ 5.4 tại đây...]</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Dữ liệu cho thấy sự gia tăng mạnh mẽ trong việc tuân thủ các khung báo cáo bền vững. Nhóm các nền kinh tế phát triển đang tiến gần đến mức bão hòa (trung bình 95,6% vào năm 2026). Trong khi đó, nhóm đang phát triển ghi nhận tốc độ tăng trưởng ấn tượng (18,2%), đặc biệt là tại Đông Nam Á và Mỹ Latinh, khi các quy định bắt buộc dần có hiệu lực. Khoảng cách tuân thủ giữa hai nhóm dự kiến sẽ thu hẹp đáng kể vào năm 2026.</p>
         </div>
-        <div class="canvas-container">
-            <div class="placeholder-box">Vùng chờ: Cập nhật mã nguồn và số liệu Biểu đồ 5.4 vào đây</div>
+        <div class="canvas-container" style="display: flex; gap: 20px; flex-grow: 1; width: 100%; min-height: 0;">
+            <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Xu hướng Tuân thủ theo Nhóm (2024 - 2026*)</h3>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart5_4_Left"></canvas>
+                </div>
+            </div>
+            
+            <div style="flex: 2; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Tỷ lệ Tuân thủ Dự phóng theo Nền kinh tế 2026* (%)</h3>
+                <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #134675; margin-right: 4px; border-radius: 2px;"></span>Nhóm Phát triển</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #FF6B6B; margin-right: 4px; border-radius: 2px;"></span>Nhóm Đang phát triển</div>
+                </div>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart5_4_Right"></canvas>
+                </div>
+            </div>
         </div>
-        <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
+        <div class="footnote"></div>
     </div>
 
     <div class="chart-wrapper">
         <div class="header">
             <div class="pre-title">5. Nhóm Dữ liệu Tài chính Xanh</div>
             <h1 class="title">Biểu đồ 5.5: Quy mô Vốn Mồi và Tỷ lệ Bảo lãnh Tín dụng của Chính phủ đối với Dự án Chuyển đổi Năng lượng</h1>
-            <p class="subtitle"><b>Phân tích xu hướng:</b> [Nhập nội dung phân tích chi tiết cho biểu đồ 5.5 tại đây...]</p>
+            <p class="subtitle"><b>Phân tích xu hướng:</b> Dữ liệu cho thấy sự phân hóa mang tính cấu trúc. Các nền kinh tế phát triển duy trì quy mô vốn mồi lớn (dự phóng 174,75 Tỷ USD năm 2026) nhưng chỉ cần tỷ lệ bảo lãnh tín dụng mức trung bình (55-85%) nhờ hệ thống tài chính hoàn thiện. Ngược lại, nhóm đang phát triển dù có quy mô vốn nhỏ hơn (111,35 Tỷ USD) nhưng chính phủ phải cam kết tỷ lệ bảo lãnh rất cao (75-98%), cá biệt như Papua New Guinea, Philippines lên tới 95-98% để thu hút dòng vốn quốc tế vào các dự án rủi ro.</p>
         </div>
-        <div class="canvas-container">
-            <div class="placeholder-box">Vùng chờ: Cập nhật mã nguồn và số liệu Biểu đồ 5.5 vào đây</div>
+        <div class="canvas-container" style="display: flex; gap: 20px; min-height: 0;">
+            <div style="flex: 1; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 16px 0; font-size: 13px; color: #134675; text-align: center;">Xu hướng Vốn & Tỷ lệ Bảo lãnh (2024-2026*)</h3>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart5_5_Left"></canvas>
+                </div>
+            </div>
+            
+            <div style="flex: 1.5; display: flex; flex-direction: column; background-color: #F8FAFC; border-radius: 12px; padding: 16px; border: 1px solid #CBD5E1;">
+                <h3 style="margin: 0 0 12px 0; font-size: 13px; color: #134675; text-align: center;">Ma trận Vốn Mồi & Rủi ro Tín dụng Dự phóng (2026*)</h3>
+                <div style="display: flex; justify-content: center; gap: 16px; font-size: 11px; color: #475569; font-weight: 600; padding-bottom: 8px;">
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #134675; margin-right: 4px; border-radius: 50%;"></span>Nhóm Phát triển</div>
+                    <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #FF6B6B; margin-right: 4px; border-radius: 50%;"></span>Nhóm Đang phát triển</div>
+                </div>
+                <div style="flex-grow: 1; position: relative;">
+                    <canvas id="apecChart5_5_Right"></canvas>
+                </div>
+            </div>
         </div>
         <div class="footnote">* Số liệu được DSC và Economia tổng hợp</div>
     </div>
 
-    <!-- ================== TRANG BÌA SAU ================== -->
     <div class="chart-wrapper cover-page">
         <div class="cover-text">[BÌA SAU]</div>
     </div>
 
-
-    <!-- ================== SCRIPT BIỂU ĐỒ ================== -->
     <script>
-        // Đăng ký plugin DataLabels
         Chart.register(ChartDataLabels);
 
-        // Kích hoạt độ phân giải siêu cao (Retina)
         Chart.defaults.devicePixelRatio = 3;
         Chart.defaults.font.family = "'Inter', sans-serif";
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 1.1A (TREEMAP GDP)
-        // ==========================================
         const ctx1_1_A = document.getElementById('apecChart1_1_A').getContext('2d');
 
         const rawTreeData1_1_A = [
@@ -1251,9 +1236,6 @@
             }
         });
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 1.1B (TREEMAP DÂN SỐ)
-        // ==========================================
         const ctx1_1_B = document.getElementById('apecChart1_1_B').getContext('2d');
 
         const rawTreeData1_1_B = [
@@ -1334,13 +1316,9 @@
         });
 
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 1.2 (TREEMAPS THƯƠNG MẠI PHẢI)
-        // ==========================================
         const ctx1_2_RT = document.getElementById('apecChart1_2_RightTop').getContext('2d');
         const ctx1_2_RB = document.getElementById('apecChart1_2_RightBottom').getContext('2d');
 
-        // Dữ liệu Thương mại 2024
         const treeData1_2_2024 = [
             { r: 'Đông Bắc Á', v: 13.8, c: '#134675', tc: '#FFFFFF' },
             { r: 'Châu Mỹ', v: 10.7, c: '#b0ebfb', tc: '#134675' },
@@ -1348,7 +1326,6 @@
             { r: 'Châu Đại Dương', v: 1.3, c: '#FF6B6B', tc: '#FFFFFF' }
         ];
 
-        // Dữ liệu Thương mại 2026 
         const treeData1_2_2026 = [
             { r: 'Đông Bắc Á', v: 14.7, c: '#134675', tc: '#FFFFFF' },
             { r: 'Châu Mỹ', v: 11.3, c: '#b0ebfb', tc: '#134675' },
@@ -1356,7 +1333,6 @@
             { r: 'Châu Đại Dương', v: 1.4, c: '#FF6B6B', tc: '#FFFFFF' }
         ];
 
-        // Hàm tạo config
         function createTreemapConfig1_2(dataTree, isMain) {
             return {
                 type: 'treemap',
@@ -1386,7 +1362,7 @@
                             font: function(context) {
                                 if (!context.raw || !context.raw.w) return { size: 10 };
                                 const minDim = Math.min(context.raw.w, context.raw.h);
-                                if (minDim < 30) return { size: 0 }; // Ẩn chữ nếu ô quá nhỏ (như Châu Đại Dương)
+                                if (minDim < 30) return { size: 0 };
                                 if (minDim < 50) return { size: isMain ? 10 : 8 };
                                 return { size: isMain ? 13 : 11, weight: '700' };
                             },
@@ -1422,16 +1398,10 @@
             };
         }
 
-        // Khởi tạo 2 biểu đồ (Trên là 2024 phụ, Dưới là 2026 chính)
         new Chart(ctx1_2_RT, createTreemapConfig1_2(treeData1_2_2024, false));
         new Chart(ctx1_2_RB, createTreemapConfig1_2(treeData1_2_2026, true));
 
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 1.3 (DÂN SỐ & GIỚI TÍNH)
-        // ==========================================
-        
-        // --- Chart 1.3 Left: 100% Stacked Bar (Age Structure 2026) ---
         const ctx1_3_Left = document.getElementById('apecChart1_3_Left').getContext('2d');
         const labels1_3 = ['Thế giới', 'Đông Bắc Á', 'Đông Nam Á', 'Châu Mỹ', 'Châu Đ.Dương'];
 
@@ -1462,7 +1432,7 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                indexAxis: 'x', // Cột đứng
+                indexAxis: 'x',
                 scales: {
                     x: { stacked: true, grid: {display: false}, ticks: {font: {size: 11, weight: '600'}} },
                     y: { stacked: true, max: 100, ticks: {callback: (value) => value + '%', font: {size: 11}}, border: {display: false} }
@@ -1473,15 +1443,14 @@
                         callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}%` }
                     },
                     datalabels: {
-                        color: (ctx) => ctx.datasetIndex === 1 ? '#134675' : '#FFF', // Chữ tối cho nền Mint, chữ trắng cho nền đậm
+                        color: (ctx) => ctx.datasetIndex === 1 ? '#134675' : '#FFF',
                         font: {size: 11, weight: 'bold'},
-                        formatter: (val) => val > 5 ? val + '%' : '' // Chỉ hiện số nếu > 5%
+                        formatter: (val) => val > 5 ? val + '%' : ''
                     }
                 }
             }
         });
 
-        // --- Chart 1.3 Right: Line Chart (Gender Ratio 2024-2026) ---
         const ctx1_3_Right = document.getElementById('apecChart1_3_Right').getContext('2d');
         
         new Chart(ctx1_3_Right, {
@@ -1529,7 +1498,7 @@
                 },
                 plugins: {
                     legend: { position: 'bottom', labels: {usePointStyle: true, boxWidth: 8, font: {size: 11}} },
-                    datalabels: { display: false }, // Tắt hiển thị toàn bộ nhãn số
+                    datalabels: { display: false },
                     tooltip: {
                         callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw} Nam/100 Nữ` }
                     }
@@ -1538,11 +1507,6 @@
         });
 
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 2.1 (TĂNG TRƯỞNG GDP & GDP/NGƯỜI)
-        // ==========================================
-
-        // --- Chart 2.1 Left: Line Chart (Averages) ---
         const ctx2_1_Left = document.getElementById('apecChart2_1_Left').getContext('2d');
         
         new Chart(ctx2_1_Left, {
@@ -1593,10 +1557,8 @@
             }
         });
 
-        // --- Chart 2.1 Right: Horizontal Combo Chart (21 Economies) ---
         const ctx2_1_Right = document.getElementById('apecChart2_1_Right').getContext('2d');
         
-        // Dữ liệu đã làm sạch và sắp xếp theo Tăng trưởng GDP 2026 giảm dần
         const data2_1_Raw = [
             { id: 'VIE', e: 'Việt Nam', gdp: 6.5, pc: 4.7, r: 'Đông Nam Á' },
             { id: 'CHN', e: 'Trung Quốc', gdp: 4.2, pc: 4.3, r: 'Đông Bắc Á' },
@@ -1631,16 +1593,16 @@
                 labels: data2_1_Raw.map(d => d.e),
                 datasets: [
                     {
-                        type: 'line', // Chuyển từ scatter sang line để gióng khớp với category ngang
+                        type: 'line',
                         label: 'GDP Bình quân Đầu người (%)',
                         data: data2_1_Raw.map(d => d.pc),
                         backgroundColor: '#0F2027',
                         borderColor: '#0F2027',
-                        showLine: false, // Ẩn đường thẳng nối để chỉ hiện điểm tam giác
+                        showLine: false,
                         pointStyle: 'triangle',
                         pointRadius: 5,
                         pointHoverRadius: 7,
-                        order: 1 // Hiển thị đè lên trên thanh cột
+                        order: 1
                     },
                     {
                         type: 'bar',
@@ -1656,7 +1618,7 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                indexAxis: 'y', // Biểu đồ ngang
+                indexAxis: 'y',
                 scales: {
                     x: { 
                         grid: { color: (ctx) => ctx.tick.value === 0 ? '#94A3B8' : '#F1F5F9', lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1 },
@@ -1669,8 +1631,8 @@
                     }
                 },
                 plugins: {
-                    legend: { display: false }, // Đã tạo custom legend bằng HTML ở trên
-                    datalabels: { display: false }, // Tắt datalabels để tránh rối vì quá nhiều dòng
+                    legend: { display: false },
+                    datalabels: { display: false },
                     tooltip: {
                         backgroundColor: 'rgba(15, 32, 39, 0.95)',
                         titleFont: { size: 13, weight: '700' },
@@ -1685,12 +1647,8 @@
         });
 
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 2.2 (CẤU TRÚC GDP theo KHU VỰC)
-        // ==========================================
         const ctx2_2 = document.getElementById('apecChart2_2').getContext('2d');
 
-        // Dữ liệu 2026, tính toán phần "Khác" (100 - Nông - CN - Dịch vụ)
         const data2_2_Raw = [
             { e: 'Hoa Kỳ', ag: 0.9, mf: 10.8, sv: 80.6 },
             { e: 'Trung Quốc', ag: 6.5, mf: 25.0, sv: 57.8 },
@@ -1791,9 +1749,6 @@
         });
 
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 2.3
-        // ==========================================
         const ctx2_3 = document.getElementById('apecChart2_3').getContext('2d');
 
         const rawData2_3 = [
@@ -1916,9 +1871,6 @@
 
         new Chart(ctx2_3, config2_3);
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 2.4 (CHỈ SỐ TỶ GIÁ SDR)
-        // ==========================================
         const ctx2_4 = document.getElementById('apecChart2_4').getContext('2d');
 
         const rawData2_4 = [
@@ -2035,9 +1987,6 @@
             }
         });
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 2.5 (THẤT NGHIỆP LU1 & LU4)
-        // ==========================================
         const data2_5_Raw = [
             { e: 'Hoa Kỳ', lu1: [4.1, 4.3, 3.9], lu4: [5.8, 6.0, 5.7] },
             { e: 'Trung Quốc', lu1: [4.6, 5.1, 5.0], lu4: [8.4, 8.5, 8.5] },
@@ -2124,12 +2073,8 @@
         new Chart(document.getElementById('apecChart2_5_LU1').getContext('2d'), createConfig2_5('lu1'));
         new Chart(document.getElementById('apecChart2_5_LU4').getContext('2d'), createConfig2_5('lu4'));
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 3.1 & 3.2
-        // ==========================================
         const subColors = { 'Đông Bắc Á': '#134675', 'Đông Nam Á': '#acfde1', 'Châu Mỹ': '#b0ebfb', 'Châu Đại Dương': '#FF6B6B' };
 
-        // --- 3.1 ---
         new Chart(document.getElementById('chart3_1_L').getContext('2d'), {
             data: {
                 labels: ['2024', '2025', '2026*'],
@@ -2186,7 +2131,7 @@
                 plugins: { 
                     legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 10, font: { size: 11, weight: '600' } } },
                     datalabels: {
-                        display: (ctx) => ctx.dataIndex === 2, // Chỉ hiển thị số liệu ở điểm kết thúc (2026) để tránh rối mắt
+                        display: (ctx) => ctx.dataIndex === 2, 
                         align: 'right', anchor: 'center', offset: 6,
                         color: (ctx) => ['#acfde1', '#b0ebfb'].includes(ctx.dataset.borderColor) ? '#0F2027' : ctx.dataset.borderColor,
                         font: { weight: 'bold', size: 12 },
@@ -2200,7 +2145,6 @@
             }
         });
 
-        // --- 3.2 ---
         const data3_2_Raw = [
             { e: 'USA', r: 'Châu Mỹ', d24: 741.0, d25: 792.9, d26: 827.8 },
             { e: 'PRC', r: 'Đông Bắc Á', d24: 221.0, d25: 254.2, d26: 265.4 },
@@ -2307,7 +2251,6 @@
             }
         });
 
-        // --- 3.3 ---
         new Chart(document.getElementById('chart3_3_L').getContext('2d'), {
             type: 'bar',
             data: {
@@ -2325,7 +2268,6 @@
             options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: { color: '#FFF', font: {weight: 'bold'} } } }
         });
 
-        // --- 3.4 UPDATED ---
         const regionData34 = [
             { l: 'Toàn cầu', r: -0.41, c: '#94A3B8' },
             { l: 'Toàn APEC', r: -0.44, c: '#F5A623' }, 
@@ -2346,7 +2288,7 @@
                 layout: { padding: { top: 10, bottom: 25 } },
                 scales: { 
                     x: {
-                        position: 'top', // Đưa chữ lên trục mốc 0 phía trên
+                        position: 'top', 
                         grid: { display: false },
                         ticks: { font: { size: 11, weight: '600' }, color: '#475569', maxRotation: 45, minRotation: 45 }
                     },
@@ -2418,9 +2360,6 @@
             }
         });
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 4.1 (LIS & NĂNG SUẤT)
-        // ==========================================
         
         const scatterQuadrantPlugin = {
             id: 'quadrant',
@@ -2592,11 +2531,7 @@
             }
         });
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 4.2 (INTERNET & BROADBAND)
-        // ==========================================
 
-        // --- Chart 4.2 Left: Horizontal Bar + Point ---
         const ctx4_2_Left = document.getElementById('apecChart4_2_Left').getContext('2d');
         
         const data4_2_Raw = [
@@ -2686,7 +2621,6 @@
             }
         });
 
-        // --- Chart 4.2 Right: Line Trend (APEC vs World) ---
         const ctx4_2_Right = document.getElementById('apecChart4_2_Right').getContext('2d');
         new Chart(ctx4_2_Right, {
             type: 'line',
@@ -2745,11 +2679,7 @@
             }
         });
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 4.3 (DOANH NGHIỆP KỲ LÂN)
-        // ==========================================
         
-        // --- Chart 4.3 Left: Treemap ---
         const ctx4_3_Left = document.getElementById('apecChart4_3_Left').getContext('2d');
         
         const data4_3_Raw = [
@@ -2772,7 +2702,6 @@
             { e: 'PER', v: 5.5, q: 2, r: 'Châu Mỹ' },
             { e: 'MAS', v: 4, q: 3, r: 'Đông Nam Á' },
             { e: 'CHL', v: 2, q: 2, r: 'Châu Mỹ' }
-            // Các quốc gia quy mô = 0 như Brunei, PNG được ẩn đi để không làm lỗi Treemap
         ].sort((a, b) => b.v - a.v);
 
         const regionColors4_3 = {
@@ -2857,7 +2786,6 @@
             }
         });
 
-        // --- Chart 4.3 Right: Trend Stacked Bar + Line ---
         const ctx4_3_Right = document.getElementById('apecChart4_3_Right').getContext('2d');
         new Chart(ctx4_3_Right, {
             data: {
@@ -2915,7 +2843,7 @@
                 plugins: {
                     legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: { size: 10, weight: '600' } } },
                     datalabels: {
-                        display: (ctx) => ctx.datasetIndex === 0, // Chỉ hiện label cho đường line
+                        display: (ctx) => ctx.datasetIndex === 0, 
                         align: 'top', anchor: 'bottom', offset: 8,
                         backgroundColor: '#FF6B6B', color: '#FFFFFF',
                         borderRadius: 4, font: { weight: 'bold', size: 10 },
@@ -2934,11 +2862,6 @@
             }
         });
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 4.4 (THỊ PHẦN EV)
-        // ==========================================
-        
-        // --- Chart 4.4 Left: Line Trend ---
         const ctx4_4_Left = document.getElementById('apecChart4_4_Left').getContext('2d');
         new Chart(ctx4_4_Left, {
             type: 'line',
@@ -2979,7 +2902,6 @@
             }
         });
 
-        // --- Chart 4.4 Right: Horizontal Bar (2026 Forecast) ---
         const ctx4_4_Right = document.getElementById('apecChart4_4_Right').getContext('2d');
         
         const data4_4_Raw = [
@@ -3024,7 +2946,7 @@
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                indexAxis: 'y', // Cột ngang
+                indexAxis: 'y', 
                 layout: { padding: { right: 30 } },
                 scales: {
                     x: {
@@ -3053,12 +2975,7 @@
             }
         });
 
-        // ==========================================
-        // CẤU HÌNH BIỂU ĐỒ 4.5 (NĂNG LƯỢNG AI & GIÁ ĐIỆN)
-        // ==========================================
 
-        // Tính toán CAGR cho dữ liệu 4.5 từ 2024 đến 2026
-        // CAGR = (Value_2026 / Value_2024)^(1/2) - 1
         const data4_5_Raw = [
             { e: 'Hoa Kỳ', abbr: 'USA', p: 0.148, d24: 183, d26: 245, r: 'Châu Mỹ' },
             { e: 'Trung Quốc', abbr: 'PRC', p: 0.098, d24: 102, d26: 125, r: 'Đông Bắc Á' },
@@ -3079,11 +2996,10 @@
             { e: 'Chile', abbr: 'CHL', p: 0.166, d24: 1.3, d26: 2.2, r: 'Châu Mỹ' },
             { e: 'Peru', abbr: 'PER', p: 0.162, d24: 0.9, d26: 1.6, r: 'Châu Mỹ' },
             { e: 'New Zealand', abbr: 'NZL', p: 0.152, d24: 0.6, d26: 1.3, r: 'Châu Đại Dương' }
-            // Brunei, PNG quá nhỏ nên loại bỏ để không làm nhiễu biểu đồ scatter
         ].map(item => {
             return {
                 ...item,
-                cagr: (Math.pow(item.d26 / item.d24, 1/2) - 1) * 100 // Tính %
+                cagr: (Math.pow(item.d26 / item.d24, 1/2) - 1) * 100 
             };
         });
 
@@ -3096,10 +3012,8 @@
             'Châu Mỹ': '#134675', 'Châu Đại Dương': '#FF6B6B'
         };
 
-        // --- Chart 4.5 Left: Bubble Chart ---
         const ctx4_5_Left = document.getElementById('apecChart4_5_Left').getContext('2d');
         
-        // Phân rã data thành 4 datasets để hiển thị Legend chính xác, hoặc cấu hình hàm chung
         const bubbleDatasets = ['Đông Bắc Á', 'Đông Nam Á', 'Châu Mỹ', 'Châu Đại Dương'].map(region => {
             const regionData = data4_5_Raw.filter(d => d.r === region);
             return {
@@ -3109,9 +3023,9 @@
                 borderWidth: 1.5,
                 hoverBackgroundColor: regionBorderColors4_5[region],
                 data: regionData.map(d => ({
-                    x: d.p, // Giá điện
-                    y: d.cagr, // Tăng trưởng
-                    r: Math.max(5, Math.sqrt(d.d26) * 3), // Quy mô (bán kính tỷ lệ với căn bậc 2 của diện tích/nhu cầu)
+                    x: d.p, 
+                    y: d.cagr, 
+                    r: Math.max(5, Math.sqrt(d.d26) * 3), 
                     e: d.e,
                     abbr: d.abbr,
                     d26: d.d26
@@ -3138,7 +3052,7 @@
                     }
                 },
                 plugins: {
-                    legend: { display: false }, // Đã tạo custom legend HTML
+                    legend: { display: false }, 
                     datalabels: {
                         display: true,
                         color: '#0F2027', font: {size: 9.5, weight: '700'},
@@ -3146,7 +3060,6 @@
                         anchor: 'center', 
                         align: (ctx) => {
                             const abbr = ctx.dataset.data[ctx.dataIndex].abbr;
-                            // Căn chỉnh hướng thủ công để tránh đè chữ
                             const aligns = {
                                 'PRC': 'left', 'SGP': 'right', 'RUS': 'bottom', 
                                 'CAN': 'bottom', 'TPE': 'right', 'VIE': 'top',
@@ -3154,7 +3067,7 @@
                             };
                             return aligns[abbr] || 'top';
                         }, 
-                        offset: (ctx) => ctx.dataset.data[ctx.dataIndex].r + 1 // Đẩy chữ ra ngoài bong bóng
+                        offset: (ctx) => ctx.dataset.data[ctx.dataIndex].r + 1 
                     },
                     tooltip: {
                         backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 12,
@@ -3174,22 +3087,19 @@
             }
         });
 
-        // --- Chart 4.5 Right: Doughnut Chart ---
         const ctx4_5_Right = document.getElementById('apecChart4_5_Right').getContext('2d');
         
-        // Tính toán Top 5 và phần còn lại
         const sortedD26 = [...data4_5_Raw].sort((a,b) => b.d26 - a.d26);
         const top5 = sortedD26.slice(0, 5);
         const othersSum = sortedD26.slice(5).reduce((sum, item) => sum + item.d26, 0);
         
         const doughnutLabels = [...top5.map(d => d.e), 'Các nền kinh tế khác'];
         
-        // Hệ màu đồng bộ với tiểu vùng, có điều chỉnh độ sáng để phân biệt các quốc gia cùng vùng
         const paletteMap = {
-            'Châu Mỹ': ['#b0ebfb', '#81dcf6', '#52cdf2'], // Xanh nhạt
-            'Đông Bắc Á': ['#134675', '#1f66a8', '#348ed9'], // Xanh Navy
-            'Đông Nam Á': ['#acfde1', '#85fccf', '#5efbbd'], // Bạc hà
-            'Châu Đại Dương': ['#FF6B6B', '#ff4d4d', '#ff2e2e'] // Đỏ san hô
+            'Châu Mỹ': ['#b0ebfb', '#81dcf6', '#52cdf2'], 
+            'Đông Bắc Á': ['#134675', '#1f66a8', '#348ed9'], 
+            'Đông Nam Á': ['#acfde1', '#85fccf', '#5efbbd'], 
+            'Châu Đại Dương': ['#FF6B6B', '#ff4d4d', '#ff2e2e'] 
         };
         const regionIndex = {'Châu Mỹ': 0, 'Đông Bắc Á': 0, 'Đông Nam Á': 0, 'Châu Đại Dương': 0};
         
@@ -3198,7 +3108,7 @@
             regionIndex[d.r]++;
             return color;
         });
-        doughnutColors.push('#CBD5E1'); // Màu xám cho nhóm Khác
+        doughnutColors.push('#CBD5E1'); 
 
         const doughnutData = [...top5.map(d => d.d26), parseFloat(othersSum.toFixed(1))];
 
@@ -3215,13 +3125,12 @@
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                cutout: '60%', // Tạo không gian rỗng ở giữa vành khăn
+                cutout: '60%', 
                 layout: { padding: 10 },
                 plugins: {
                     legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: {size: 11} } },
                     datalabels: {
                         color: (ctx) => {
-                            // Chữ tối cho nền sáng (Châu Mỹ, Khác), chữ trắng cho nền tối (Đông Bắc Á)
                             const bg = ctx.dataset.backgroundColor[ctx.dataIndex];
                             return (bg.includes('#134675') || bg.includes('#1f66a8') || bg.includes('#348ed9')) ? '#FFFFFF' : '#0F2027';
                         },
@@ -3231,7 +3140,6 @@
                             let dataArr = ctx.chart.data.datasets[0].data;
                             dataArr.map(data => { sum += data; });
                             let percentage = (value*100 / sum).toFixed(1) + "%";
-                            // Chỉ hiển thị phần trăm nếu lớn hơn 4% để tránh đè chữ
                             return (value*100 / sum) > 4 ? percentage : '';
                         }
                     },
@@ -3245,28 +3153,544 @@
             }
         });
 
-        // ==========================================
-        // ĐỒNG BỘ CHÚ THÍCH DỰ PHÓNG (*) CHO TẤT CẢ BIỂU ĐỒ
-        // ==========================================
-        // Tự động chèn dòng chú thích giải nghĩa (*) vào tất cả các footnote
+        const ctx5_1_Left = document.getElementById('apecChart5_1_Left').getContext('2d');
+        new Chart(ctx5_1_Left, {
+            type: 'bar',
+            data: {
+                labels: ['2024', '2025', '2026*'],
+                datasets: [{
+                    label: 'Tổng APEC',
+                    data: [526.55, 473.35, 524.55],
+                    backgroundColor: ['#b0ebfb', '#acfde1', '#134675'],
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 12, weight: '600' }, color: '#475569' } },
+                    y: { 
+                        grid: { color: '#E2E8F0', borderDash: [5, 5] }, border: { display: false },
+                        ticks: { font: { size: 11 } },
+                        min: 0, suggestedMax: 600
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end', align: 'top', offset: 4,
+                        color: '#134675', font: { size: 11, weight: 'bold' },
+                        formatter: v => v.toFixed(1)
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: { label: (ctx) => `${ctx.raw} Tỷ USD` }
+                    }
+                }
+            }
+        });
+
+        const ctx5_1_Right = document.getElementById('apecChart5_1_Right').getContext('2d');
+        const data5_1_Raw = [
+            { e: 'Hoa Kỳ', v: 85.5, r: 'Châu Mỹ' },
+            { e: 'Trung Quốc', v: 175.0, r: 'Đông Bắc Á' },
+            { e: 'Nhật Bản', v: 55.0, r: 'Đông Bắc Á' },
+            { e: 'Hàn Quốc', v: 38.5, r: 'Đông Bắc Á' },
+            { e: 'Canada', v: 17.5, r: 'Châu Mỹ' },
+            { e: 'Úc', v: 14.0, r: 'Châu Đại Dương' },
+            { e: 'Mexico', v: 12.5, r: 'Châu Mỹ' },
+            { e: 'Chile', v: 11.0, r: 'Châu Mỹ' },
+            { e: 'Peru', v: 1.8, r: 'Châu Mỹ' },
+            { e: 'Nga', v: 0.5, r: 'Đông Bắc Á' },
+            { e: 'Hồng Kông', v: 23.5, r: 'Đông Bắc Á' },
+            { e: 'Singapore', v: 15.5, r: 'Đông Nam Á' },
+            { e: 'Đài Bắc TH', v: 6.5, r: 'Đông Bắc Á' },
+            { e: 'Thái Lan', v: 10.5, r: 'Đông Nam Á' },
+            { e: 'Indonesia', v: 8.2, r: 'Đông Nam Á' },
+            { e: 'Malaysia', v: 8.5, r: 'Đông Nam Á' },
+            { e: 'Philippines', v: 4.6, r: 'Đông Nam Á' },
+            { e: 'Việt Nam', v: 2.5, r: 'Đông Nam Á' },
+            { e: 'New Zealand', v: 4.2, r: 'Châu Đại Dương' },
+            { e: 'Brunei', v: 0.15, r: 'Đông Nam Á' },
+            { e: 'Papua N.G', v: 0.1, r: 'Châu Đại Dương' }
+        ].sort((a, b) => b.v - a.v);
+
+        const regionColors5_1 = {
+            'Đông Bắc Á': '#134675', 'Đông Nam Á': '#acfde1',
+            'Châu Mỹ': '#b0ebfb', 'Châu Đại Dương': '#FF6B6B'
+        };
+
+        new Chart(ctx5_1_Right, {
+            type: 'bar',
+            data: {
+                labels: data5_1_Raw.map(d => d.e),
+                datasets: [{
+                    data: data5_1_Raw.map(d => d.v),
+                    backgroundColor: data5_1_Raw.map(d => regionColors5_1[d.r]),
+                    borderRadius: 4,
+                    barThickness: 8
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                indexAxis: 'y',
+                layout: { padding: { right: 35 } },
+                scales: {
+                    x: {
+                        grid: { color: (ctx) => ctx.tick.value === 0 ? '#94A3B8' : '#F1F5F9', lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1 },
+                        ticks: { font: { size: 10 } }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { size: 9.5, weight: '600' }, color: '#475569' },
+                        border: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end', align: 'right', offset: 4,
+                        color: '#134675', font: { size: 9.5, weight: 'bold' },
+                        formatter: v => v >= 1 ? v.toFixed(1) : v.toFixed(2)
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: { label: (ctx) => `${ctx.raw} Tỷ USD` }
+                    }
+                }
+            }
+        });
+
+        const ctx5_2 = document.getElementById('apecChart5_2').getContext('2d');
+        const data5_2_Raw = [
+            { e: 'Australia', d24: -3.8, d25: -3.2, d26: -3.0, r: 'Châu Đại Dương' },
+            { e: 'Brunei', d24: -0.5, d25: -0.8, d26: -1.2, r: 'Đông Nam Á' },
+            { e: 'Canada', d24: -4.5, d25: -3.8, d26: -3.5, r: 'Châu Mỹ' },
+            { e: 'Chile', d24: -8.2, d25: -10.5, d26: -11.2, r: 'Châu Mỹ' },
+            { e: 'Trung Quốc', d24: -5.5, d25: -6.8, d26: -7.5, r: 'Đông Bắc Á' },
+            { e: 'Hồng Kông', d24: -4.2, d25: -4.5, d26: -4.8, r: 'Đông Bắc Á' },
+            { e: 'Indonesia', d24: -7.1, d25: -7.8, d26: -8.5, r: 'Đông Nam Á' },
+            { e: 'Nhật Bản', d24: -2.1, d25: -1.9, d26: -1.8, r: 'Đông Bắc Á' },
+            { e: 'Hàn Quốc', d24: -3.4, d25: -3.1, d26: -3.3, r: 'Đông Bắc Á' },
+            { e: 'Malaysia', d24: -4.8, d25: -5.2, d26: -5.8, r: 'Đông Nam Á' },
+            { e: 'Mexico', d24: -6.5, d25: -6.2, d26: -6.7, r: 'Châu Mỹ' },
+            { e: 'New Zealand', d24: -2.8, d25: -2.4, d26: -2.2, r: 'Châu Đại Dương' },
+            { e: 'Papua N.G', d24: -0.2, d25: -0.5, d26: -0.8, r: 'Châu Đại Dương' },
+            { e: 'Peru', d24: -5.8, d25: -6.2, d26: -6.5, r: 'Châu Mỹ' },
+            { e: 'Philippines', d24: -6.2, d25: -6.7, d26: -7.2, r: 'Đông Nam Á' },
+            { e: 'Nga', d24: -1.2, d25: -0.8, d26: -0.5, r: 'Đông Bắc Á' },
+            { e: 'Singapore', d24: -4.9, d25: -5.5, d26: -6.0, r: 'Đông Nam Á' },
+            { e: 'Đài Bắc TH', d24: -2.9, d25: -2.7, d26: -3.1, r: 'Đông Bắc Á' },
+            { e: 'Thái Lan', d24: -5.4, d25: -5.8, d26: -6.2, r: 'Đông Nam Á' },
+            { e: 'Hoa Kỳ', d24: -1.8, d25: -1.4, d26: -2.0, r: 'Châu Mỹ' },
+            { e: 'Việt Nam', d24: -6.8, d25: -7.2, d26: -7.8, r: 'Đông Nam Á' }
+        ].sort((a, b) => a.d26 - b.d26);
+
+        new Chart(ctx5_2, {
+            type: 'bar',
+            data: {
+                labels: data5_2_Raw.map(d => d.e),
+                datasets: [
+                    {
+                        label: '2024',
+                        data: data5_2_Raw.map(d => d.d24),
+                        backgroundColor: '#b0ebfb',
+                        borderRadius: 3
+                    },
+                    {
+                        label: '2025',
+                        data: data5_2_Raw.map(d => d.d25),
+                        backgroundColor: '#acfde1',
+                        borderRadius: 3
+                    },
+                    {
+                        label: '2026*',
+                        data: data5_2_Raw.map(d => d.d26),
+                        backgroundColor: '#134675',
+                        borderRadius: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 10, weight: '600' }, color: '#475569', maxRotation: 45, minRotation: 45 }
+                    },
+                    y: {
+                        grid: { color: (ctx) => ctx.tick.value === 0 ? '#134675' : '#E2E8F0', lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1 },
+                        border: { display: false },
+                        ticks: { font: { size: 10 } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw} bps` }
+                    }
+                }
+            }
+        });
+
+        const ctx5_3_Left = document.getElementById('apecChart5_3_Left').getContext('2d');
+        new Chart(ctx5_3_Left, {
+            type: 'line',
+            data: {
+                labels: ['2024', '2025', '2026*'],
+                datasets: [
+                    {
+                        label: 'Đang phát triển (%)',
+                        data: [8.54, 8.68, 9.14],
+                        borderColor: '#FF6B6B', backgroundColor: '#FF6B6B',
+                        borderWidth: 3, pointRadius: 5, yAxisID: 'y', order: 1
+                    },
+                    {
+                        label: 'Phát triển (%)',
+                        data: [5.71, 6.04, 6.33],
+                        borderColor: '#134675', backgroundColor: '#134675',
+                        borderWidth: 3, pointRadius: 5, yAxisID: 'y', order: 2
+                    },
+                    {
+                        type: 'bar',
+                        label: 'Khoảng cách (bps)',
+                        data: [283, 264, 281],
+                        backgroundColor: '#CBD5E1', borderRadius: 4, barPercentage: 0.4,
+                        yAxisID: 'y1', order: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 11, weight: '600' } } },
+                    y: { 
+                        position: 'left', min: 4, max: 10, 
+                        title: { display: true, text: 'Trung bình WACC (%)', font: {size:11, weight:'600'}, color: '#64748B' },
+                        grid: { color: '#E2E8F0', borderDash: [5, 5] }, border: { display: false },
+                        ticks: { font: { size: 10 }, callback: v => v + '%' } 
+                    },
+                    y1: { 
+                        position: 'right', min: 0, max: 400, 
+                        title: { display: true, text: 'Khoảng cách (bps)', font: {size:11, weight:'600'}, color: '#64748B' },
+                        grid: { display: false }, border: { display: false },
+                        ticks: { font: { size: 10 } }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: {size: 11} } },
+                    datalabels: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: { 
+                            label: (ctx) => {
+                                if (ctx.datasetIndex === 2) return `${ctx.dataset.label}: ${ctx.raw}`;
+                                return `${ctx.dataset.label}: ${ctx.raw}%`;
+                            } 
+                        }
+                    }
+                }
+            }
+        });
+
+        const rawData5_3_R = [
+            { e: 'Nga', v: 16.0, t: 'D' }, { e: 'Papua N.G', v: 12.5, t: 'D' },
+            { e: 'Indonesia', v: 9.6, t: 'D' }, { e: 'Việt Nam', v: 9.2, t: 'D' },
+            { e: 'Mexico', v: 9.1, t: 'D' }, { e: 'Philippines', v: 8.8, t: 'D' },
+            { e: 'Peru', v: 8.2, t: 'D' }, { e: 'Thái Lan', v: 7.5, t: 'D' },
+            { e: 'Úc', v: 7.4, t: 'A' }, { e: 'Chile', v: 7.3, t: 'D' },
+            { e: 'New Zealand', v: 7.1, t: 'A' }, { e: 'Malaysia', v: 7.0, t: 'D' },
+            { e: 'Brunei', v: 7.0, t: 'D' }, { e: 'Hoa Kỳ', v: 6.8, t: 'A' },
+            { e: 'Canada', v: 6.4, t: 'A' }, { e: 'Hàn Quốc', v: 6.0, t: 'A' },
+            { e: 'Đài Bắc TH', v: 5.9, t: 'A' }, { e: 'Hồng Kông', v: 5.8, t: 'A' },
+            { e: 'Singapore', v: 5.6, t: 'A' }, { e: 'Nhật Bản', v: 5.0, t: 'A' },
+            { e: 'Trung Quốc', v: 4.4, t: 'D' }
+        ].sort((a,b) => b.v - a.v);
+
+        const ctx5_3_Right = document.getElementById('apecChart5_3_Right').getContext('2d');
+        new Chart(ctx5_3_Right, {
+            type: 'bar',
+            data: {
+                labels: rawData5_3_R.map(d => d.e),
+                datasets: [{
+                    data: rawData5_3_R.map(d => d.v),
+                    backgroundColor: rawData5_3_R.map(d => d.t === 'A' ? '#134675' : '#FF6B6B'),
+                    borderRadius: 4, barThickness: 8
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                layout: { padding: { right: 35 } },
+                scales: {
+                    x: { grid: { color: (ctx) => ctx.tick.value === 0 ? '#94A3B8' : '#F1F5F9', lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1 }, ticks: { font: {size: 10}, callback: v => v + '%' } },
+                    y: { grid: { display: false }, ticks: { font: { size: 9.5, weight: '600'}, color: '#475569' }, border: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: { 
+                        anchor: 'end', align: 'right', offset: 4,
+                        color: (ctx) => rawData5_3_R[ctx.dataIndex].t === 'A' ? '#134675' : '#FF6B6B',
+                        font: { size: 9, weight: 'bold' }, formatter: v => v.toFixed(1) + '%' 
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: { label: (ctx) => `${ctx.raw}%` }
+                    }
+                }
+            }
+        });
+
+        const ctx5_4_Left = document.getElementById('apecChart5_4_Left').getContext('2d');
+        new Chart(ctx5_4_Left, {
+            type: 'line',
+            data: {
+                labels: ['2024', '2025', '2026*'],
+                datasets: [
+                    {
+                        label: 'Nhóm Phát triển',
+                        data: [88.2, 91.8, 95.6],
+                        borderColor: '#134675', backgroundColor: '#134675',
+                        borderWidth: 3, pointRadius: 5
+                    },
+                    {
+                        label: 'Trung bình APEC',
+                        data: [65.5, 71.2, 80.5],
+                        borderColor: '#F5A623', borderDash: [5, 5], backgroundColor: '#F5A623',
+                        borderWidth: 2, pointRadius: 4
+                    },
+                    {
+                        label: 'Nhóm Đang phát triển',
+                        data: [53.5, 62.1, 73.4],
+                        borderColor: '#FF6B6B', backgroundColor: '#FF6B6B',
+                        borderWidth: 3, pointRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 11, weight: '600' } } },
+                    y: { 
+                        min: 0, max: 100, 
+                        title: { display: true, text: 'Tỷ lệ Tuân thủ (%)', font: {size:11, weight:'600'}, color: '#64748B' },
+                        grid: { color: '#E2E8F0', borderDash: [5, 5] }, border: { display: false },
+                        ticks: { font: { size: 10 }, callback: v => v + '%' } 
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: {size: 11} } },
+                    datalabels: { 
+                        align: 'top', 
+                        color: (ctx) => ctx.dataset.borderColor,
+                        font: {size: 10, weight: 'bold'},
+                        formatter: (val) => val + '%'
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}%` }
+                    }
+                }
+            }
+        });
+
+        const rawData5_4_R = [
+            { e: 'Đài Bắc TH', v: 99.0, t: 'A' }, { e: 'Hồng Kông', v: 98.0, t: 'A' },
+            { e: 'Hoa Kỳ', v: 97.0, t: 'A' }, { e: 'Nhật Bản', v: 96.0, t: 'A' },
+            { e: 'Singapore', v: 96.0, t: 'A' }, { e: 'New Zealand', v: 95.0, t: 'A' },
+            { e: 'Úc', v: 94.0, t: 'A' }, { e: 'Canada', v: 92.0, t: 'A' },
+            { e: 'Hàn Quốc', v: 88.0, t: 'A' }, { e: 'Trung Quốc', v: 91.0, t: 'D' },
+            { e: 'Chile', v: 89.0, t: 'D' }, { e: 'Malaysia', v: 82.0, t: 'D' },
+            { e: 'Thái Lan', v: 78.0, t: 'D' }, { e: 'Mexico', v: 75.0, t: 'D' },
+            { e: 'Indonesia', v: 74.0, t: 'D' }, { e: 'Việt Nam', v: 72.0, t: 'D' },
+            { e: 'Philippines', v: 60.0, t: 'D' }, { e: 'Peru', v: 55.0, t: 'D' },
+            { e: 'Nga', v: 52.0, t: 'D' }, { e: 'Brunei', v: 35.0, t: 'D' },
+            { e: 'Papua N.G', v: 28.0, t: 'D' }
+        ].sort((a,b) => b.v - a.v);
+
+        const ctx5_4_Right = document.getElementById('apecChart5_4_Right').getContext('2d');
+        new Chart(ctx5_4_Right, {
+            type: 'bar',
+            data: {
+                labels: rawData5_4_R.map(d => d.e),
+                datasets: [{
+                    data: rawData5_4_R.map(d => d.v),
+                    backgroundColor: rawData5_4_R.map(d => d.t === 'A' ? '#134675' : '#FF6B6B'),
+                    borderRadius: 4, barThickness: 8
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                layout: { padding: { right: 35 } },
+                scales: {
+                    x: { max: 100, grid: { color: (ctx) => ctx.tick.value === 0 ? '#94A3B8' : '#F1F5F9', lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1 }, ticks: { font: {size: 10}, callback: v => v + '%' } },
+                    y: { grid: { display: false }, ticks: { font: { size: 9.5, weight: '600'}, color: '#475569' }, border: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: { 
+                        anchor: 'end', align: 'right', offset: 4,
+                        color: (ctx) => rawData5_4_R[ctx.dataIndex].t === 'A' ? '#134675' : '#FF6B6B',
+                        font: { size: 9, weight: 'bold' }, formatter: v => v.toFixed(1) + '%' 
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: { label: (ctx) => `${ctx.raw}%` }
+                    }
+                }
+            }
+        });
+
+        const ctx5_5_Left = document.getElementById('apecChart5_5_Left').getContext('2d');
+        new Chart(ctx5_5_Left, {
+            data: {
+                labels: ['2024', '2025', '2026*'],
+                datasets: [
+                    {
+                        type: 'line', label: 'Bảo lãnh: Phát triển (%)',
+                        data: [60, 65, 70],
+                        borderColor: '#134675', backgroundColor: '#134675',
+                        borderWidth: 2, pointRadius: 4, yAxisID: 'y1', order: 1
+                    },
+                    {
+                        type: 'line', label: 'Bảo lãnh: Đang PT (%)',
+                        data: [80, 84, 86.5],
+                        borderColor: '#FF6B6B', backgroundColor: '#FF6B6B',
+                        borderWidth: 2, pointRadius: 4, yAxisID: 'y1', order: 2
+                    },
+                    {
+                        type: 'bar', label: 'Vốn: Phát triển (Tỷ USD)',
+                        data: [146.65, 160.05, 174.75],
+                        backgroundColor: 'rgba(19, 70, 117, 0.7)', borderRadius: 4,
+                        yAxisID: 'y', order: 3
+                    },
+                    {
+                        type: 'bar', label: 'Vốn: Đang PT (Tỷ USD)',
+                        data: [84.59, 97.0, 111.35],
+                        backgroundColor: 'rgba(255, 107, 107, 0.7)', borderRadius: 4,
+                        yAxisID: 'y', order: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: {display: false}, ticks: {font: {size: 11, weight: '600'}} },
+                    y: { 
+                        stacked: true, position: 'left',
+                        title: { display: true, text: 'Vốn mồi (Tỷ USD)', font: {size:10, weight:'600'}, color:'#64748B' },
+                        grid: {color: '#E2E8F0'}, ticks: {font: {size: 10}}
+                    },
+                    y1: { 
+                        position: 'right', min: 40, max: 100,
+                        title: { display: true, text: 'Tỷ lệ Bảo lãnh (%)', font: {size:10, weight:'600'}, color:'#64748B' },
+                        grid: {display: false}, ticks: {font: {size: 10}}
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom', labels: {usePointStyle: true, boxWidth: 8, font: {size: 10}} },
+                    datalabels: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)', titleFont: { size: 12, weight: '700' }, bodyFont: { size: 12 }, padding: 10
+                    }
+                }
+            }
+        });
+
+        const ctx5_5_Right = document.getElementById('apecChart5_5_Right').getContext('2d');
+        const data5_5_Scatter = [
+            {x: 60, y: 78.5, e: 'USA', g: 'D'}, {x: 70, y: 39.2, e: 'JPN', g: 'D'},
+            {x: 55, y: 15.5, e: 'CAN', g: 'D'}, {x: 60, y: 12.7, e: 'AUS', g: 'D'},
+            {x: 75, y: 16.8, e: 'KOR', g: 'D'}, {x: 55, y: 5.6, e: 'SGP', g: 'D'},
+            {x: 55, y: 2.6, e: 'NZL', g: 'D'}, {x: 70, y: 2.0, e: 'TPE', g: 'D'},
+            {x: 65, y: 1.8, e: 'HKG', g: 'D'},
+            {x: 85, y: 70.4, e: 'CHN', g: 'E'}, {x: 90, y: 9.8, e: 'INA', g: 'E'},
+            {x: 85, y: 6.2, e: 'VIE', g: 'E'}, {x: 75, y: 4.2, e: 'MEX', g: 'E'},
+            {x: 95, y: 4.1, e: 'PHI', g: 'E'}, {x: 80, y: 4.2, e: 'THA', g: 'E'},
+            {x: 75, y: 3.5, e: 'MAS', g: 'E'}, {x: 95, y: 3.0, e: 'CHL', g: 'E'},
+            {x: 90, y: 2.3, e: 'PER', g: 'E'}, {x: 70, y: 2.5, e: 'RUS', g: 'E'},
+            {x: 98, y: 0.6, e: 'PNG', g: 'E'}, {x: 60, y: 0.4, e: 'BRU', g: 'E'}
+        ];
+
+        new Chart(ctx5_5_Right, {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    {
+                        label: 'Phát triển',
+                        data: data5_5_Scatter.filter(d => d.g === 'D'),
+                        backgroundColor: '#134675', borderColor: '#134675',
+                        pointRadius: 6, pointHoverRadius: 8
+                    },
+                    {
+                        label: 'Đang phát triển',
+                        data: data5_5_Scatter.filter(d => d.g === 'E'),
+                        backgroundColor: '#FF6B6B', borderColor: '#FF6B6B',
+                        pointRadius: 6, pointHoverRadius: 8
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Tỷ lệ Bảo lãnh Tín dụng 2026* (%)', font: {weight: '600'}, color: '#134675'},
+                        grid: { color: '#F1F5F9' },
+                        ticks: { font: {size: 11}, callback: v => v + '%' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Quy mô Vốn mồi 2026* (Tỷ USD) - Thang Log', font: {weight: '600'}, color: '#134675'},
+                        type: 'logarithmic',
+                        grid: { color: '#F1F5F9' },
+                        ticks: { 
+                            font: {size: 11}, 
+                            callback: function(value, index, values) {
+                                if (value === 0.1 || value === 1 || value === 10 || value === 100) return value;
+                                return null;
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end', align: 'right', offset: 4,
+                        color: '#475569', font: {size: 9.5, weight: '600'},
+                        formatter: (val) => val.e
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 32, 39, 0.95)',
+                        titleFont: { size: 13, weight: '700' }, bodyFont: { size: 12 }, padding: 10,
+                        callbacks: {
+                            label: (ctx) => {
+                                const d = ctx.raw;
+                                return `${d.e}: Bảo lãnh ${d.x}% | Vốn mồi ${d.y} Tỷ USD`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
         document.querySelectorAll('.footnote').forEach(el => {
             el.innerHTML = `
                 <span style="color: #134675; font-weight: 600;">* Các chỉ số có đánh dấu (*) đại diện cho số liệu dự phóng (Forecast)</span>
                 <span style="color: #64748B;">* Số liệu được DSC và Economia tổng hợp</span>
             `;
-            // Căn chỉnh CSS inline để đảm bảo hoạt động trên mọi trang
             el.style.display = 'flex';
             el.style.justifyContent = 'space-between';
             el.style.alignItems = 'flex-end';
             el.style.paddingTop = '8px';
             el.style.width = '100%';
-            el.style.marginTop = 'auto'; // Ép dòng chú thích xuống sát đáy
+            el.style.marginTop = 'auto'; 
             el.style.fontSize = '11px';
             el.style.fontStyle = 'italic';
-            el.style.flexShrink = '0'; // QUAN TRỌNG: Không cho phép bị co lại khi biểu đồ tràn khung
+            el.style.flexShrink = '0'; 
             el.style.position = 'relative';
-            el.style.zIndex = '10'; // Nổi lên trên lớp canvas
-            el.style.backgroundColor = '#FFFFFF'; // Có màu nền trắng để che nét biểu đồ bị lẹm (nếu có)
+            el.style.zIndex = '10'; 
+            el.style.backgroundColor = '#FFFFFF'; 
         });
     </script>
 </body>
