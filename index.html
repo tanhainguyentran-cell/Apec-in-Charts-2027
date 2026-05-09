@@ -201,7 +201,50 @@
         .t-red { color: #FF6B6B; font-weight: bold; }
         .t-yellow { color: #F5A623; font-weight: bold; }
         .t-green { color: #20C997; font-weight: bold; }
-
+.intro-page {
+            background: linear-gradient(135deg, #99c9f8 0%, #d6f2ff 100%);
+            color: #0F2027;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            border: none;
+        }
+        .intro-content {
+            max-width: 900px;
+            margin: 0 auto;
+            z-index: 2;
+        }
+        .intro-text p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            text-align: justify;
+            color: #1e293b;
+        }
+        .intro-text strong {
+            color: #134675;
+        }
+        .intro-footer {
+            margin-top: auto;
+            font-size: 10px;
+            color: #475569;
+            line-height: 1.4;
+            padding-top: 100px;
+            z-index: 2;
+        }
+        .wave-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23134675' fill-opacity='0.1' d='M0,160L48,165.3C96,171,192,181,288,165.3C384,149,480,107,576,106.7C672,107,768,149,864,176C960,203,1056,213,1152,197.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3Cpath fill='%23acfde1' fill-opacity='0.3' d='M0,224L48,213.3C96,203,192,181,288,186.7C384,192,480,224,576,218.7C672,213,768,171,864,149.3C960,128,1056,128,1152,144C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
         @media print {
             body { 
                 background-color: #FFFFFF; 
@@ -315,9 +358,26 @@
         <img src="bia-truoc.png" alt="Bìa trước APEC">
     </div>
 
-    <div class="chart-wrapper cover-page">
-        <div class="cover-text">[LỜI GIỚI THIỆU]</div>
+   
+<div class="chart-wrapper intro-page">
+        <div class="wave-bg"></div>
+        <div class="intro-content">
+            <div class="intro-text">
+                <p><strong>Diễn đàn Hợp tác Kinh tế Châu Á - Thái Bình Dương (APEC)</strong> được thành lập vào năm 1989. 21 nền kinh tế thành viên bao gồm: Úc; Brunei Darussalam; Canada; Chile; Trung Quốc; Hồng Kông, Trung Quốc; Indonesia; Nhật Bản; Hàn Quốc; Malaysia; Mexico; New Zealand; Papua New Guinea; Peru; Philippines; Nga; Singapore; Đài Bắc Trung Hoa; Thái Lan; Hoa Kỳ; và Việt Nam.</p>
+                
+                <p><strong>Đơn vị Hỗ trợ Chính sách APEC (PSU)</strong> là cơ quan nghiên cứu và phân tích chính sách của APEC. Đơn vị này hỗ trợ các thành viên và diễn đàn APEC trong việc nâng cao chất lượng các cuộc thảo luận và quyết định, đồng thời thúc đẩy các chính sách hỗ trợ đạt được các mục tiêu của APEC thông qua việc cung cấp nghiên cứu khách quan và chất lượng cao, năng lực phân tích và khả năng hỗ trợ chính sách.</p>
+                
+                <p><strong>APEC in Charts</strong> là ấn phẩm thường niên của PSU cung cấp cái nhìn tổng quan về dân số, GDP và thương mại của APEC trong nền kinh tế toàn cầu, đồng thời lập biểu đồ về hiệu suất kinh tế vĩ mô của khu vực. Ấn phẩm cũng đưa ra những thông tin chi tiết về các chỉ số chính phản ánh ba động lực kinh tế của Tầm nhìn APEC Putrajaya 2040, cũng như các ưu tiên của APEC trong năm.</p>
+            </div>
+        </div>
+        <div class="intro-footer">
+            Bản quyền © 2026 | Ban Thư ký APEC | APEC#225-SE-01.18<br>
+            Các quan điểm được trình bày trong ấn phẩm này là của các nhân viên PSU APEC và không đại diện cho quan điểm của Ban Thư ký APEC hay các Nền kinh tế Thành viên APEC.<br>
+            Tác phẩm này được cấp phép theo Giấy phép Creative Commons Ghi công-Phi thương mại-Chia sẻ tương tự 4.0 Quốc tế.<br>
+            Để xem bản sao của giấy phép này, hãy truy cập https://creativecommons.org/licenses/by-nc-sa/4.0/deed.vi.
+        </div>
     </div>
+
 
     <div class="chart-wrapper" style="justify-content: center; padding: 40px;">
         <h1 class="toc-title">Mục lục Báo cáo</h1>
